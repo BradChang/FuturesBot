@@ -5,7 +5,7 @@ import com.sun.jna.win32.StdCallLibrary;
 
 public interface OMSignAPI extends StdCallLibrary {
 	OMSignAPI INSTANCE = (OMSignAPI)
-    Native.loadLibrary("C:\\Program Files\\OrderMaster\\OMSignAPI",
+    Native.loadLibrary("C:\\OrderMaster\\AutoOrder\\OMSignAPI",
     		OMSignAPI.class);
 	public boolean IniDllAndPosition(String signID, int iniPosition);
 	public boolean GoOrder(String signID, String bySignStr,
