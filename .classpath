@@ -5,7 +5,6 @@
 	<classpathentry kind="lib" path="lib/htmlparser.jar"/>
 	<classpathentry kind="lib" path="lib/smack.jar"/>
 	<classpathentry kind="lib" path="lib/smackx.jar"/>
-	<classpathentry kind="lib" path="lib/jna.jar" sourcepath="C:/Users/May/.m2/repository/net/java/dev/jna/jna/3.2.7/jna-3.2.7-sources.jar"/>
 	<classpathentry kind="lib" path="lib/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/httpclient-4.0.3.jar"/>
 	<classpathentry kind="lib" path="lib/httpcore-4.0.1.jar"/>
@@ -24,5 +23,9 @@
 	<classpathentry kind="lib" path="lib/xpp3-1.1.4c.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-6.1.26.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-util-6.1.26.jar"/>
+	<classpathentry kind="lib" path="D:/project/philips/FuturesBot/lib/jna-4.1.0.jar"/>
+	<classpathentry kind="lib" path="D:/project/philips/FuturesBot/lib/jna-platform-4.1.0.jar"/>
+	<classpathentry kind="lib" path="D:/project/philips/FuturesBot/lib/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="D:/project/philips/FuturesBot/lib/skorder.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

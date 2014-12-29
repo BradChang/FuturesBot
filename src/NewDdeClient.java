@@ -12,11 +12,22 @@ import java.util.Properties;
 import java.util.Queue;
 import java.util.TimeZone;
 
-import jna.OMSignAPI;
+//import jna.OMSignAPI;
 import messenger.CalendarSample;
 import messenger.facebook;
 import messenger.gtalk;
 //import messenger.iStockApi;
+
+//import com.sun.jna.Native;
+import skorder.*;
+import org.json.simple.JSONObject;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.FileWriter;
+//import java.util.Iterator;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public class NewDdeClient {
 	int current = 0;
@@ -112,6 +123,11 @@ public class NewDdeClient {
 	double Offset;
 	double OIGap;
 	boolean dangflag = false;
+	
+	String ca_id = "A123456789", ca_password = "mypassword";
+	String ca_account = "F02000";//, ca_stock_account = "123456";
+	String tradingsymbol="MTX00";
+	private static final String POSITION_JSON = "capital_futurebot.json";
 
 	public static void main(String args[]) {
 		NewDdeClient client = new NewDdeClient();
@@ -185,15 +201,82 @@ public class NewDdeClient {
 			f.alert(botname, fb, "Object Loading Error!! " + ex);*/
 			System.exit(0);
 		}
-		boolean result = OMSignAPI.INSTANCE
-				.IniDllAndPosition("MTX002", current);
-		if (!result) {
-			System.out.println("OMSignAPI IniDllAndPosition Error!!");
-			/*if (isGtalkOn)
-			g.alert(botname, Email, "OMSignAPI IniDllAndPosition Error!!");
-			if (isFBOn)
-			f.alert(botname, fb, "OMSignAPI IniDllAndPosition Error!!");*/
+
+		JSONParser parser = new JSONParser();
+		//Object obj;
+		try
+		{
+			Object obj = parser.parse(new FileReader(POSITION_JSON));
+			JSONObject jsonObject = (JSONObject) obj;
+
+			ca_id = (String) jsonObject.get("ca_id");
+			System.out.println("ca_id: " + ca_id);
+			ca_password = (String) jsonObject.get("ca_password");
+			ca_account = (String) jsonObject.get("ca_account");
+			System.out.println("ca_account: " + ca_account);
+			//ca_stock_account = (String) jsonObject.get("ca_stock_account");
+			
+			tradingsymbol = (String) jsonObject.get("symbol");
+			long multi = (long)jsonObject.get("currentmulti");
+			currentmulti = (int) multi;
 		}
+		catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		catch (ParseException e)
+		{
+			e.printStackTrace();
+		}
+		
+	/*	try {
+			JSONParser parser2 = new JSONParser();
+			current = 2;
+			FileReader fr = new FileReader(POSITION_JSON);
+			Object obj = parser2.parse(fr);
+			JSONObject jsonObject = (JSONObject) obj;
+			jsonObject.put("position", current);
+			
+            // Writing to a file  
+            File file=new File(POSITION_JSON);  
+            file.createNewFile();  
+            FileWriter fileWriter = new FileWriter(file);  
+            System.out.println("Writing JSON object to file"+POSITION_JSON);  
+            System.out.print(jsonObject);
+  
+            fileWriter.write(jsonObject.toJSONString());  
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (IOException e) {  
+            e.printStackTrace();  
+        }
+		*/
+		//init order api
+		int nCode = SKOrderLib.INSTANCE.SKOrderLib_Initialize(ca_id, ca_password);
+		if (nCode == 0)
+		{
+			System.out.println("skorder init ok");
+			SKOrderLib.INSTANCE.RegisterOnOrderAsyncReportCallBack(new FOnOrderAsyncCallBack());
+		}
+		else
+		{
+			System.out.println("skorder init FAILED");
+		}
+
+		nCode = SKOrderLib.INSTANCE.SKOrderLib_ReadCertByID(ca_id);
+		if (nCode == 0)
+		{
+			System.out.println("Cert ok");
+		}
+		else
+		{
+			System.out.println("Cert FAILED");
+		}
+		
 		IPAddress ip = new IPAddress();
 		/*if (isGtalkOn)
 		g.alert(botname, Email, ip.getPPPIp() + " Start Trading System!!" + Offset);
@@ -253,15 +336,83 @@ public class NewDdeClient {
 	}
 
 	public void writetxt(int input) {
-		boolean result = OMSignAPI.INSTANCE.GoOrder("MTX002", futuressignals,
+		
+	/*	boolean result = OMSignAPI.INSTANCE.GoOrder("MTX002", futuressignals,
 				getNowTime(), current, input);
 		if (!result) {
 			System.out.println("OMSignAPI GoOrder Error!!");
-			/*if (isGtalkOn)
+			if (isGtalkOn)
 			g.alert(botname, Email, "Futuresbot OMSignAPI GoOrder Error!!");
 			if (isFBOn)
-			f.alert(botname, fb, "Futuresbot OMSignAPI GoOrder Error!!");*/
+			f.alert(botname, fb, "Futuresbot OMSignAPI GoOrder Error!!");
 		}
+	*/
+		//check position with json
+		int position=0;
+		JSONParser parser = new JSONParser();
+		try
+		{
+			Object obj = parser.parse(new FileReader(POSITION_JSON));
+			JSONObject jsonObject = (JSONObject) obj;
+
+			long pos = (long)jsonObject.get("position");
+			position = (int)pos;
+			System.out.println("position: " + position);
+		}
+		catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		catch (ParseException e)
+		{
+			e.printStackTrace();
+		}
+		
+		int order = current-position;
+		if (order !=0)
+		{
+			int thread = SKOrderLib.INSTANCE.SendFutureOrderAsync(
+				ca_account, 
+				tradingsymbol, 
+				(short) 1,	//0:ROD 1:IOC 2:FOK
+				(short) 1,	//當沖0:否 1:是，可當沖商品請參考交易所規定。.
+				order>0?(short)0:(short)1,	//買賣別，0:買進 1:賣出
+				"M", 	//委託價格，「M」表示市價
+				Math.abs(order)
+				);
+			
+			try {
+				Object obj = parser.parse(new FileReader(POSITION_JSON));
+				JSONObject jsonObject = (JSONObject) obj;
+				jsonObject.put("position", current);
+	            // Writing to a file  
+	            File file=new File(POSITION_JSON);
+	            //file.createNewFile();
+	            FileWriter fileWriter = new FileWriter(file);
+	           // System.out.println("Writing JSON object to file");
+	            //System.out.print(jsonObject);
+	  
+	            fileWriter.write(jsonObject.toJSONString());
+	            fileWriter.flush();
+	            fileWriter.close();
+	        }
+			catch (FileNotFoundException e)
+			{
+				e.printStackTrace();
+			}
+			catch (IOException e) {
+	            e.printStackTrace();
+	        }
+			catch (ParseException e)
+			{
+				e.printStackTrace();
+			}
+		}
+
 		//istock.priceGet(current, input);
 		txt.setOutput(getNowTime() + " current:" + current + ", price:" + inputt);
 		txt.flush();
