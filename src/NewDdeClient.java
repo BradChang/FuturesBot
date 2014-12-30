@@ -128,6 +128,7 @@ public class NewDdeClient {
 	String ca_account = "F02000";//, ca_stock_account = "123456";
 	String tradingsymbol="MTX00";
 	private static final String POSITION_JSON = "capital_futurebot.json";
+	long paperorder=1;
 
 	public static void main(String args[]) {
 		NewDdeClient client = new NewDdeClient();
@@ -158,6 +159,7 @@ public class NewDdeClient {
             //get the property value and print it out
     		if ("true".equals(prop.getProperty("USE_CAL"))) {
     			isCalOn = true;
+				System.out.println("USE_CAL");
     		}
     		if ("true".equals(prop.getProperty("USE_GTALK"))) {
     			isGtalkOn = true;
@@ -219,6 +221,7 @@ public class NewDdeClient {
 			tradingsymbol = (String) jsonObject.get("symbol");
 			long multi = (long)jsonObject.get("currentmulti");
 			currentmulti = (int) multi;
+			paperorder = (long)jsonObject.get("paperorder");
 		}
 		catch (FileNotFoundException e)
 		{
@@ -375,15 +378,18 @@ public class NewDdeClient {
 		int order = current-position;
 		if (order !=0)
 		{
-			int thread = SKOrderLib.INSTANCE.SendFutureOrderAsync(
-				ca_account, 
-				tradingsymbol, 
-				(short) 1,	//0:ROD 1:IOC 2:FOK
-				(short) 1,	//當沖0:否 1:是，可當沖商品請參考交易所規定。.
-				order>0?(short)0:(short)1,	//買賣別，0:買進 1:賣出
-				"M", 	//委託價格，「M」表示市價
-				Math.abs(order)
-				);
+			if (paperorder<1)
+			{
+				int thread = SKOrderLib.INSTANCE.SendFutureOrderAsync(
+						ca_account, 
+						tradingsymbol, 
+						(short) 1,	//0:ROD 1:IOC 2:FOK
+						(short) 1,	//當沖0:否 1:是，可當沖商品請參考交易所規定。.
+						order>0?(short)0:(short)1,	//買賣別，0:買進 1:賣出
+								"M", 	//委託價格，「M」表示市價
+								Math.abs(order)
+						);
+			}
 			
 			try {
 				Object obj = parser.parse(new FileReader(POSITION_JSON));

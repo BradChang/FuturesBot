@@ -15,6 +15,7 @@ public class SGXindex implements java.io.Serializable {
 	private double openindex;
 	
 	public static void main(String args[]) {
+		System.out.println("SGXindex::main()");
 		try {
 		FileInputStream fis = new FileInputStream("C:\\Dropbox\\SGX.ser");
 		ObjectInputStream ois = new ObjectInputStream(fis);
