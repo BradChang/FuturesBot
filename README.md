@@ -49,8 +49,9 @@ FuturesBot - 台指期當沖自動交易機器人
 若需要支援服務或教學顧問付費服務，歡迎來信！聯絡資訊：[service@tradingbot.com.tw](service@tradingbot.com.tw)
 
 ================================
-lwhuang做的fork，用群益API下單取代下單大師
+## 用群益API下單取代下單大師
 
+作者：[lwhuang]
 1. 條件
 
     1. 至少群益策略王要可以下單，表示帳號、密碼、憑證是好的
