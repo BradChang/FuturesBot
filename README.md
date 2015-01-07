@@ -47,3 +47,30 @@ FuturesBot - 台指期當沖自動交易機器人
 歡迎發 Pull Request 協助修改永續發展此 TradingBot 。感謝！
 
 若需要支援服務或教學顧問付費服務，歡迎來信！聯絡資訊：[service@tradingbot.com.tw](service@tradingbot.com.tw)
+
+================================
+lwhuang做的fork，用群益API下單取代下單大師
+
+1. 條件
+
+    1. 至少群益策略王要可以下單，表示帳號、密碼、憑證是好的
+	3. 要申請群益API，請洽營業員
+	2. 要開通群益API，請洽營業員
+	
+2. 用文字編輯器設定capital_futurebot.json
+
+    ca_account : 期貨帳號，從策略王裡面抄 F+13碼數字
+	ca_id : 身份證字號
+	ca_password : 密碼
+	currentmulti : 下單倍數
+	paperorder : 1 不會下單 0 會下真單
+	position : 0 目前部位，下單後程式會更改
+	symbol : 內定交易MTX00，群益的小台代號，大台代號是TX00
+	
+3. 移動群益設定檔 config.ini 到%PATH%中java.exe的目錄所在，用java -jar bot.jar來啟動程式，我的預設環境是放在 C:\ProgramData\Oracle\Java\javapath
+
+4. 程式簡易說明
+
+	1. 做一個下單元件skorder.jar
+	2. 修改NewDdeClient::NewDdeClient()引入skorder
+	3. 修改NewDdeClient::writetxt()下單
