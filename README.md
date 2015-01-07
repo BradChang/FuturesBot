@@ -52,6 +52,7 @@ FuturesBot - 台指期當沖自動交易機器人
 ## 用群益API下單取代下單大師
 
 作者：[lwhuang]
+
 1. 條件
 
     1. 至少群益策略王要可以下單，表示帳號、密碼、憑證是好的
@@ -68,10 +69,12 @@ FuturesBot - 台指期當沖自動交易機器人
 	position : 0 目前部位，下單後程式會更改
 	symbol : 內定交易MTX00，群益的小台代號，大台代號是TX00
 	
-3. 移動群益設定檔 config.ini 到%PATH%中java.exe的目錄所在，用java -jar bot.jar來啟動程式，我的預設環境是放在 C:\ProgramData\Oracle\Java\javapath
+3. 移動群益設定檔 config.ini 到%PATH%中java.exe的目錄所在，我的預設環境是放在 C:\ProgramData\Oracle\Java\javapath
 
-4. 程式簡易說明
+4. 所在目錄執行 ant 可得到 bot.jar，執行 java -jar bot.jar 
 
-	1. 做一個下單元件skorder.jar
+5. 程式簡易說明
+
+	1. 做一個下單元件skorder.jar (https://bitbucket.org/lwhuang/capital_order_jna)
 	2. 修改NewDdeClient::NewDdeClient()引入skorder
 	3. 修改NewDdeClient::writetxt()下單
