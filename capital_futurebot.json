@@ -1,0 +1,10 @@
+{
+   "ca_account" : "F1234567890123",
+   "ca_id" : "A123456789",
+   "ca_password" : "password",
+   "ca_stock_account" : "123456789",
+   "currentmulti" : 1,
+   "paperorder" : 1,
+   "position" : 0,
+   "symbol" : "MTX00"
+}
