@@ -51,7 +51,7 @@ FuturesBot - 台指期當沖自動交易機器人
 ================================
 ## 用群益API下單取代下單大師
 
-作者：[lwhuang]
+作者：[lwhuang](http://www.coco-in.net/space-uid-9256.html)
 
 1. 條件
 
@@ -61,15 +61,15 @@ FuturesBot - 台指期當沖自動交易機器人
 	
 2. 用文字編輯器設定capital_futurebot.json
 
-    ca_account : 期貨帳號，從策略王裡面抄 F+13碼數字
-	ca_id : 身份證字號
-	ca_password : 密碼
-	currentmulti : 下單倍數
-	paperorder : 1 不會下單 0 會下真單
-	position : 0 目前部位，下單後程式會更改
-	symbol : 內定交易MTX00，群益的小台代號，大台代號是TX00
+    1. ca_account : 期貨帳號，從策略王裡面抄 F+13碼數字
+	2. ca_id : 身份證字號
+	3. ca_password : 密碼
+	4. currentmulti : 下單倍數
+	5. paperorder : 1 不會下單 0 會下真單
+	6. position : 0 目前部位，下單後程式會更改
+	7. symbol : 內定交易MTX00，群益的小台代號，大台代號是TX00
 	
-3. 移動群益設定檔 config.ini 到%PATH%中java.exe的目錄所在，我的預設環境是放在 C:\ProgramData\Oracle\Java\javapath
+3. 移動群益設定檔 config.ini 到 %PATH% 中 java.exe 的目錄所在，預設環境在 C:\ProgramData\Oracle\Java\javapath
 
 4. 所在目錄執行 ant 可得到 bot.jar，執行 java -jar bot.jar 
 
