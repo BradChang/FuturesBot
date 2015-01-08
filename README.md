@@ -14,7 +14,7 @@ FuturesBot - 台指期當沖自動交易機器人
     ```
     npm install net mqtt
     ```
-    
+
 2. 使用方法 - 修改程式包裝成 Jar 檔
 
     1. 安裝 [Ant build](http://ant.apache.org/)
@@ -48,8 +48,7 @@ FuturesBot - 台指期當沖自動交易機器人
 
 若需要支援服務或教學顧問付費服務，歡迎來信！聯絡資訊：[service@tradingbot.com.tw](service@tradingbot.com.tw)
 
-================================
-## 用群益API下單取代下單大師
+## 用群益API直接下單 ##
 
 作者：[lwhuang](http://www.coco-in.net/space-uid-9256.html)
 
@@ -58,6 +57,7 @@ FuturesBot - 台指期當沖自動交易機器人
     1. 至少群益策略王要可以下單，表示帳號、密碼、憑證是好的
 	3. 要申請群益API，請洽營業員
 	2. 要開通群益API，請洽營業員
+	3. java要用32位元的
 	
 2. 用文字編輯器設定capital_futurebot.json
 
@@ -67,11 +67,11 @@ FuturesBot - 台指期當沖自動交易機器人
 	4. currentmulti : 下單倍數
 	5. paperorder : 1 不會下單 0 會下真單
 	6. position : 0 目前部位，下單後程式會更改
-	7. symbol : 內定交易MTX00，群益的小台代號，大台代號是TX00
+	7. symbol : 內定交易小台代號MTX00，可改為大台代號TX00
 	
 3. 移動群益設定檔 config.ini 到 %PATH% 中 java.exe 的目錄所在，預設環境在 C:\ProgramData\Oracle\Java\javapath
 
-4. 所在目錄執行 ant 可得到 bot.jar，執行 java -jar bot.jar 
+4. 所在目錄執行``ant``可得到 bot.jar，執行``java -jar bot.jar``
 
 5. 程式簡易說明
 
