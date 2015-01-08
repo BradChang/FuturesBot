@@ -360,7 +360,6 @@ public class NewDdeClient {
 
 			long pos = (long)jsonObject.get("position");
 			position = (int)pos;
-			System.out.println("position: " + position);
 		}
 		catch (FileNotFoundException e)
 		{
@@ -422,7 +421,7 @@ public class NewDdeClient {
 		//istock.priceGet(current, input);
 		txt.setOutput(getNowTime() + " current:" + current + ", price:" + inputt);
 		txt.flush();
-		System.out.println("current:" + current + ", price:" + inputt);
+		System.out.println(getNowTime() + " current:" + current + ", price:" + inputt);
 	}
 
 	public void check(int input) {
