@@ -23,9 +23,12 @@
 	<classpathentry kind="lib" path="lib/xpp3-1.1.4c.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-6.1.26.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-util-6.1.26.jar"/>
-	<classpathentry kind="lib" path="D:/project/philips/FuturesBot/lib/jna-4.1.0.jar"/>
-	<classpathentry kind="lib" path="D:/project/philips/FuturesBot/lib/jna-platform-4.1.0.jar"/>
-	<classpathentry kind="lib" path="D:/project/philips/FuturesBot/lib/json-simple-1.1.1.jar"/>
-	<classpathentry kind="lib" path="D:/project/philips/FuturesBot/lib/skorder.jar"/>
+	<classpathentry kind="lib" path="lib/swt.jar"/>
+	<classpathentry kind="lib" path="lib/skorder.jar"/>
+	<classpathentry kind="lib" path="lib/jna-4.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/jna-platform-4.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="D:/project/philips/FuturesBot/lib/skosquote.jar"/>
+	<classpathentry kind="lib" path="D:/project/philips/FuturesBot/lib/skquote.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
