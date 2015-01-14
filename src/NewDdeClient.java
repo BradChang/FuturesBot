@@ -43,7 +43,7 @@ public class NewDdeClient {
 	int win = 0;
 	int lost = 0;
 	int total = 0;
-	int range = 16; // ÅÜ°Ê½d³ò­È
+	int range = 16; // è®Šå?ç¯„å??
 	// int flag = 0;
 	int high = 0;
 	int low = 0;
@@ -58,7 +58,7 @@ public class NewDdeClient {
 	private static String botname = "XXXXXX";
 	double HLpercent;
 	double nowpercent;
-	double percent = 0.0; // «e¤@¤Ñ¯d­Üµû¦ô­È
+	double percent = 0.0; // ?ä?å¤©ç??‰è?ä¼°å€
 	int multiple = 2;
 	String version = "";
 	int inputt;
@@ -67,8 +67,8 @@ public class NewDdeClient {
 	int hlflag = 0;
 	int tsize = price.length;
 	int abscurrent = 0;
-	static String futuressignals = "¤p¥x«ü,MXF,";
-	static final String futuressignal = "¥x«ü´Á,TXF,";
+	static String futuressignals = "å°å°??MXF,";
+	static final String futuressignal = "?°æ???TXF,";
 	int tsize1 = 2;
 	int currentmulti = 1;
 	String YYMMDD;
@@ -80,8 +80,8 @@ public class NewDdeClient {
 	//static CalendarSample cal = CalendarSample.getInstance();
 	int vol;
 	int totalvol;
-	// int opweek; //¤U½t
-	// int opweek1; //¤W½t
+	// int opweek; //ä¸‹ç·£
+	// int opweek1; //ä¸Šç·£
 	boolean close = false;
 	boolean SGXclose = false;
 	// int week = 0;
@@ -180,8 +180,8 @@ public class NewDdeClient {
 			// Clean up the file
 			fuindex = fu.getHistoryPro();
 			volpro = fu.getVolPro();
-			// System.out.println("¤W¤@¥æ©ö¤é¥¼¥­­Ü" + opprice + "CALL "
-			// + Math.abs(current) + "¤f!!");
+			// System.out.println("ä¸Šä?äº¤æ??¥æœªå¹³å€? + opprice + "CALL "
+			// + Math.abs(current) + "??!");
 
 			fis = new FileInputStream("C:\\Dropbox\\SGX.ser");
 			ois = new ObjectInputStream(fis);
@@ -331,12 +331,12 @@ public class NewDdeClient {
 			}
 			// txt.setOutput(getNowTime() + " " + a);
 		} else if (temp[0].equals("KOSPI")) {
-			double ksindex = Double.parseDouble(temp[1]);
+			double ksindex = Double.parseDouble(temp[5]);
 			double ksPreSettle = Double.parseDouble(temp[10]);
 			if (ksindex != 0)
 				kspercent = (ksindex / ksPreSettle) - 1;
 		} else if (temp[0].equals("TWN")) {
-			SGXindex = Double.parseDouble(temp[1]);
+			SGXindex = Double.parseDouble(temp[5]);
 			double SGXPreSettle = Double.parseDouble(temp[10]);
 			if (SGXindex != 0)
 				SGXpercent = (SGXindex / SGXPreSettle) - 1;
@@ -588,14 +588,14 @@ public class NewDdeClient {
 							// range += 2;
 							System.out.println(getNowTime() + " max1:" + input);
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + "max1 ¶R¶i:"
-									+ input + " " + abscurrent + "¤f");
+							g.alert(botname, Email, getNowTime() + "max1 è²·é€?"
+									+ input + " " + abscurrent + "??);
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " ¶R¶i:" + input
-									+ " " + abscurrent + "¤f");
+							f.alert(botname, getNowTime() + " è²·é€?" + input
+									+ " " + abscurrent + "??);
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " ¶R¶i:" + input + " "
-									+ abscurrent + "¤f");*/
+							cal.addEvent(getNowTime() + " è²·é€?" + input + " "
+									+ abscurrent + "??);*/
 							lowo = input;
 							higho = 0;
 							hlflag = 0;
@@ -621,14 +621,14 @@ public class NewDdeClient {
 							// range += 2;
 							System.out.println(getNowTime() + " min1:" + input);
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + "min1 ½æ¥X:"
-									+ input + " " + abscurrent + "¤f");
+							g.alert(botname, Email, getNowTime() + "min1 è³?‡º:"
+									+ input + " " + abscurrent + "??);
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " ½æ¥X:" + input
-									+ " " + abscurrent + "¤f");
+							f.alert(botname, getNowTime() + " è³?‡º:" + input
+									+ " " + abscurrent + "??);
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " ½æ¥X:" + input + " "
-									+ abscurrent + "¤f");*/
+							cal.addEvent(getNowTime() + " è³?‡º:" + input + " "
+									+ abscurrent + "??);*/
 							higho = input;
 							lowo = 0;
 							hlflag = 0;
@@ -654,14 +654,14 @@ public class NewDdeClient {
 							// range += 2;
 							System.out.println(getNowTime() + " max2:" + input);
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + "max2 ¶R¶i:"
-									+ input + " " + abscurrent + "¤f");
+							g.alert(botname, Email, getNowTime() + "max2 è²·é€?"
+									+ input + " " + abscurrent + "??);
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " ¶R¶i:" + input
-									+ " " + abscurrent + "¤f");
+							f.alert(botname, getNowTime() + " è²·é€?" + input
+									+ " " + abscurrent + "??);
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " ¶R¶i:" + input + " "
-									+ abscurrent + "¤f");*/
+							cal.addEvent(getNowTime() + " è²·é€?" + input + " "
+									+ abscurrent + "??);*/
 							lowo = input;
 							higho = 0;
 							hlflag = 0;
@@ -687,14 +687,14 @@ public class NewDdeClient {
 							// range += 2;
 							System.out.println(getNowTime() + " min2:" + input);
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + "min2 ½æ¥X:"
-									+ input + " " + abscurrent + "¤f");
+							g.alert(botname, Email, getNowTime() + "min2 è³?‡º:"
+									+ input + " " + abscurrent + "??);
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " ½æ¥X:" + input
-									+ " " + abscurrent + "¤f");
+							f.alert(botname, getNowTime() + " è³?‡º:" + input
+									+ " " + abscurrent + "??);
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " ½æ¥X:" + input + " "
-									+ abscurrent + "¤f");*/
+							cal.addEvent(getNowTime() + " è³?‡º:" + input + " "
+									+ abscurrent + "??);*/
 							higho = input;
 							lowo = 0;
 							hlflag = 0;
@@ -738,17 +738,17 @@ public class NewDdeClient {
 										+ text + "b:" + input);
 								/*if (isGtalkOn)
 								g.alert(botname, Email, getNowTime()
-										+ text + "b ¶R¶i:" + input + " "
-										+ abscurrent + "¤f" + " ¦¸¼Æ:"
+										+ text + "b è²·é€?" + input + " "
+										+ abscurrent + "?? + " æ¬¡æ•¸:"
 										+ counterPos + " " +SGXTWGap());
 								if (isFBOn)
 								f.alert(botname, getNowTime()
-										+ " ¶R¶i:" + input + " "
-										+ abscurrent + "¤f");
+										+ " è²·é€?" + input + " "
+										+ abscurrent + "??);
 								if (isCalOn)
-								cal.addEvent(getNowTime() + " ¶R¶i:"
+								cal.addEvent(getNowTime() + " è²·é€?"
 										+ input + " " + abscurrent
-										+ "¤f");*/
+										+ "??);*/
 								lowo = input;
 								higho = 0;
 								hlflag = 0;
@@ -784,17 +784,17 @@ public class NewDdeClient {
 										+ text + "s:" + input);
 								/*if (isGtalkOn)
 								g.alert(botname, Email, getNowTime()
-										+ text + "s ½æ¥X:" + input + " "
-										+ abscurrent + "¤f" + " ¦¸¼Æ:"
+										+ text + "s è³?‡º:" + input + " "
+										+ abscurrent + "?? + " æ¬¡æ•¸:"
 										+ counterPos + " " +SGXTWGap());
 								if (isFBOn)
 								f.alert(botname, getNowTime()
-										+ " ½æ¥X:" + input + " "
-										+ abscurrent + "¤f");
+										+ " è³?‡º:" + input + " "
+										+ abscurrent + "??);
 								if (isCalOn)
-								cal.addEvent(getNowTime() + " ½æ¥X:"
+								cal.addEvent(getNowTime() + " è³?‡º:"
 										+ input + " " + abscurrent
-										+ "¤f");*/
+										+ "??);*/
 								higho = input;
 								lowo = 0;
 								hlflag = 0;
@@ -833,15 +833,15 @@ public class NewDdeClient {
 							price[i] = input;
 						System.out.println(getNowTime() + "LOWM BUY:" + input);
 						/*if (isGtalkOn)
-						g.alert(botname, Email, getNowTime() + " LOWM¦h³æ¶R¶i:"
-								+ input + " " + abscurrent + "¤f" + " ¦¸¼Æ:"
+						g.alert(botname, Email, getNowTime() + " LOWMå¤šå–®è²·é€?"
+								+ input + " " + abscurrent + "?? + " æ¬¡æ•¸:"
 								+ lowmcountB);
 						if (isFBOn)
-						f.alert(botname, getNowTime() + " ¶R¶i:" + input
-								+ " " + abscurrent + "¤f");
+						f.alert(botname, getNowTime() + " è²·é€?" + input
+								+ " " + abscurrent + "??);
 						if (isCalOn)
-						cal.addEvent(getNowTime() + " ¶R¶i:" + input + " "
-								+ abscurrent + "¤f");*/
+						cal.addEvent(getNowTime() + " è²·é€?" + input + " "
+								+ abscurrent + "??);*/
 						hlflag = 0;
 						lowmcountB = 0;
 						lowmcount = 0;
@@ -888,15 +888,15 @@ public class NewDdeClient {
 							price[i] = input;
 						System.out.println(getNowTime() + "LOWM SELL" + input);
 						/*if (isGtalkOn)
-						g.alert(botname, Email, getNowTime() + " LOWMªÅ³æ½æ¥X:"
-								+ input + " " + abscurrent + "¤f" + " ¦¸¼Æ:"
+						g.alert(botname, Email, getNowTime() + " LOWMç©ºå–®è³?‡º:"
+								+ input + " " + abscurrent + "?? + " æ¬¡æ•¸:"
 								+ lowmcountS);
 						if (isFBOn)
-						f.alert(botname, getNowTime() + " ½æ¥X:" + input
-								+ " " + abscurrent + "¤f");
+						f.alert(botname, getNowTime() + " è³?‡º:" + input
+								+ " " + abscurrent + "??);
 						if (isCalOn)
-						cal.addEvent(getNowTime() + " ½æ¥X:" + input + " "
-								+ abscurrent + "¤f");*/
+						cal.addEvent(getNowTime() + " è³?‡º:" + input + " "
+								+ abscurrent + "??);*/
 						hlflag = 0;
 						lowmcountS = 0;
 						lowmcount = 0;
@@ -953,8 +953,8 @@ public class NewDdeClient {
 		if (current > 0) {
 			if ((SGXTWGap() - SGXGap) <= 0) {
 				if (getHighLowPro(true) > lowoutgap) {
-					if ((input <= (higho - GapvoloutL)) && hlflag == 1) { // §PÂ_¬O§_°ªÂI¦^ÀÉ
-						// ¦h¤è°±§Q
+					if ((input <= (higho - GapvoloutL)) && hlflag == 1) { // ?¤æ–·?¯å¦é«˜é??æ?
+						// å¤šæ–¹?œåˆ©
 						for (int i = 0; i < abscurrent; i++) {
 							if (input > price[i]) {
 								win = win + (input - price[i]);
@@ -963,14 +963,14 @@ public class NewDdeClient {
 										+ input);
 								/*if (isGtalkOn)
 								g.alert(botname, Email, getNowTime()
-										+ " LOWW1¦h³æ°±§Q:" + input + " "
-										+ abscurrent + "¤f");
+										+ " LOWW1å¤šå–®?œåˆ©:" + input + " "
+										+ abscurrent + "??);
 								if (isFBOn)
-								f.alert(botname, getNowTime() + " ¦h³æ°±§Q:"
-										+ input + " " + abscurrent + "¤f");
+								f.alert(botname, getNowTime() + " å¤šå–®?œåˆ©:"
+										+ input + " " + abscurrent + "??);
 								if (isCalOn)
-								cal.addEvent(getNowTime() + " ¦h³æ°±§Q:" + input
-										+ " " + abscurrent + "¤f");*/
+								cal.addEvent(getNowTime() + " å¤šå–®?œåˆ©:" + input
+										+ " " + abscurrent + "??);*/
 							} else {
 								lost = lost + (price[i] - input);
 								total = total - (price[i] - input);
@@ -978,14 +978,14 @@ public class NewDdeClient {
 										+ input);
 								/*if (isGtalkOn)
 								g.alert(botname, Email, getNowTime()
-										+ " LOWL1¦h³æ°±·l:" + input + " "
-										+ abscurrent + "¤f");
+										+ " LOWL1å¤šå–®?œæ?:" + input + " "
+										+ abscurrent + "??);
 								if (isFBOn)
-								f.alert(botname, getNowTime() + " ¦h³æ°±·l:"
-										+ input + " " + abscurrent + "¤f");
+								f.alert(botname, getNowTime() + " å¤šå–®?œæ?:"
+										+ input + " " + abscurrent + "??);
 								if (isCalOn)
-								cal.addEvent(getNowTime() + " ¦h³æ°±·l:" + input
-										+ " " + abscurrent + "¤f");*/
+								cal.addEvent(getNowTime() + " å¤šå–®?œæ?:" + input
+										+ " " + abscurrent + "??);*/
 							}
 						}
 						init();
@@ -1006,15 +1006,15 @@ public class NewDdeClient {
 											+ "BUYLOWMW2! cost:" + input);
 									/*if (isGtalkOn)
 									g.alert(botname, Email, getNowTime()
-											+ " LOWW2¦h³æ°±§Q:" + input + " "
-											+ abscurrent + "¤f");
+											+ " LOWW2å¤šå–®?œåˆ©:" + input + " "
+											+ abscurrent + "??);
 									if (isFBOn)
 									f.alert(botname, getNowTime()
-											+ " ¦h³æ°±§Q:" + input + " "
-											+ abscurrent + "¤f");
+											+ " å¤šå–®?œåˆ©:" + input + " "
+											+ abscurrent + "??);
 									if (isCalOn)
-									cal.addEvent(getNowTime() + " ¦h³æ°±§Q:" + input
-											+ " " + abscurrent + "¤f");*/
+									cal.addEvent(getNowTime() + " å¤šå–®?œåˆ©:" + input
+											+ " " + abscurrent + "??);*/
 								} else {
 									lost = lost + (price[i] - input);
 									total = total - (price[i] - input);
@@ -1022,15 +1022,15 @@ public class NewDdeClient {
 											+ "BUYLOWML2! cost:" + input);
 									/*if (isGtalkOn)
 									g.alert(botname, Email, getNowTime()
-											+ " LOWL2¦h³æ°±·l:" + input + " "
-											+ abscurrent + "¤f");
+											+ " LOWL2å¤šå–®?œæ?:" + input + " "
+											+ abscurrent + "??);
 									if (isFBOn)
 									f.alert(botname, getNowTime()
-											+ " ¦h³æ°±·l:" + input + " "
-											+ abscurrent + "¤f");
+											+ " å¤šå–®?œæ?:" + input + " "
+											+ abscurrent + "??);
 									if (isCalOn)
-									cal.addEvent(getNowTime() + " ¦h³æ°±·l:" + input
-											+ " " + abscurrent + "¤f");*/
+									cal.addEvent(getNowTime() + " å¤šå–®?œæ?:" + input
+											+ " " + abscurrent + "??);*/
 								}
 							}
 							init();
@@ -1044,8 +1044,8 @@ public class NewDdeClient {
 		} else if (current < 0) {
 			if ((SGXTWGap() + SGXGap) >= 0) {
 				if (getHighLowPro(false) > lowoutgap) {
-					if ((input >= (lowo + GapvoloutL)) && hlflag == -1) { // §PÂ_¬O§_§CÂI¦^ÀÉ
-						// ªÅ¤è°±·l
+					if ((input >= (lowo + GapvoloutL)) && hlflag == -1) { // ?¤æ–·?¯å¦ä½é??æ?
+						// ç©ºæ–¹?œæ?
 						for (int i = 0; i < abscurrent; i++) {
 							if (input < price[i]) {
 								win = win + (price[i] - input);
@@ -1054,14 +1054,14 @@ public class NewDdeClient {
 										+ input);
 								/*if (isGtalkOn)
 								g.alert(botname, Email, getNowTime()
-										+ " LOWW1ªÅ³æ°±§Q:" + input + " "
-										+ abscurrent + "¤f");
+										+ " LOWW1ç©ºå–®?œåˆ©:" + input + " "
+										+ abscurrent + "??);
 								if (isFBOn)
-								f.alert(botname, getNowTime() + " ªÅ³æ°±§Q:"
-										+ input + " " + abscurrent + "¤f");
+								f.alert(botname, getNowTime() + " ç©ºå–®?œåˆ©:"
+										+ input + " " + abscurrent + "??);
 								if (isCalOn)
-								cal.addEvent(getNowTime() + " ªÅ³æ°±§Q:" + input
-										+ " " + abscurrent + "¤f");*/
+								cal.addEvent(getNowTime() + " ç©ºå–®?œåˆ©:" + input
+										+ " " + abscurrent + "??);*/
 							} else {
 								lost = lost + (input - price[i]);
 								total = total - (input - price[i]);
@@ -1069,14 +1069,14 @@ public class NewDdeClient {
 										+ input);
 								/*if (isGtalkOn)
 								g.alert(botname, Email, getNowTime()
-										+ " LOWL1ªÅ³æ°±·l:" + input + " "
-										+ abscurrent + "¤f");
+										+ " LOWL1ç©ºå–®?œæ?:" + input + " "
+										+ abscurrent + "??);
 								if (isFBOn)
-								f.alert(botname, getNowTime() + " ªÅ³æ°±·l:"
-										+ input + " " + abscurrent + "¤f");
+								f.alert(botname, getNowTime() + " ç©ºå–®?œæ?:"
+										+ input + " " + abscurrent + "??);
 								if (isCalOn)
-								cal.addEvent(getNowTime() + " ªÅ³æ°±·l:" + input
-										+ " " + abscurrent + "¤f");*/
+								cal.addEvent(getNowTime() + " ç©ºå–®?œæ?:" + input
+										+ " " + abscurrent + "??);*/
 							}
 						}
 						init();
@@ -1097,15 +1097,15 @@ public class NewDdeClient {
 											+ " SELLCW2! cost:" + input);
 									/*if (isGtalkOn)
 									g.alert(botname, Email, getNowTime()
-											+ " LOWW2ªÅ³æ°±§Q:" + input + " "
-											+ abscurrent + "¤f");
+											+ " LOWW2ç©ºå–®?œåˆ©:" + input + " "
+											+ abscurrent + "??);
 									if (isFBOn)
 									f.alert(botname, getNowTime()
-											+ " ªÅ³æ°±§Q:" + input + " "
-											+ abscurrent + "¤f");
+											+ " ç©ºå–®?œåˆ©:" + input + " "
+											+ abscurrent + "??);
 									if (isCalOn)
-									cal.addEvent(getNowTime() + " ªÅ³æ°±§Q:" + input
-											+ " " + abscurrent + "¤f");*/
+									cal.addEvent(getNowTime() + " ç©ºå–®?œåˆ©:" + input
+											+ " " + abscurrent + "??);*/
 								} else {
 									lost = lost + (input - price[i]);
 									total = total - (input - price[i]);
@@ -1113,15 +1113,15 @@ public class NewDdeClient {
 											+ " SELLCL2! cost:" + input);
 									/*if (isGtalkOn)
 									g.alert(botname, Email, getNowTime()
-											+ " LOWL2ªÅ³æ°±·l:" + input + " "
-											+ abscurrent + "¤f");
+											+ " LOWL2ç©ºå–®?œæ?:" + input + " "
+											+ abscurrent + "??);
 									if (isFBOn)
 									f.alert(botname, getNowTime()
-											+ " ªÅ³æ°±·l:" + input + " "
-											+ abscurrent + "¤f");
+											+ " ç©ºå–®?œæ?:" + input + " "
+											+ abscurrent + "??);
 									if (isCalOn)
-									cal.addEvent(getNowTime() + " ªÅ³æ°±·l:" + input
-											+ " " + abscurrent + "¤f");*/
+									cal.addEvent(getNowTime() + " ç©ºå–®?œæ?:" + input
+											+ " " + abscurrent + "??);*/
 								}
 							}
 							init();
@@ -1139,9 +1139,9 @@ public class NewDdeClient {
 		if (current > 0) {
 			if ((SGXTWGap() - SGXGap) <= 0) {
 				if (getHighLowPro(true) > highoutgap) {
-					if ((input <= (higho - GapvoloutH)) && hlflag == 1) { // §PÂ_¬O§_°ªÂI¦^ÀÉ
+					if ((input <= (higho - GapvoloutH)) && hlflag == 1) { // ?¤æ–·?¯å¦é«˜é??æ?
 						if (input > (price[abscurrent - 1] + sval)) {
-							// ¦h¤è°±§Q
+							// å¤šæ–¹?œåˆ©
 							for (int i = 0; i < abscurrent; i++) {
 								if (input > price[i]) {
 									win = win + (input - price[i]);
@@ -1150,15 +1150,15 @@ public class NewDdeClient {
 											+ " BUYHIGHMW1! cost:" + input);
 									/*if (isGtalkOn)
 									g.alert(botname, Email, getNowTime()
-											+ " HIGHM1¦h³æ°±§Q:" + input + " "
-											+ abscurrent + "¤f");
+											+ " HIGHM1å¤šå–®?œåˆ©:" + input + " "
+											+ abscurrent + "??);
 									if (isFBOn)
 									f.alert(botname, getNowTime()
-											+ " ¦h³æ°±§Q:" + input + " "
-											+ abscurrent + "¤f");
+											+ " å¤šå–®?œåˆ©:" + input + " "
+											+ abscurrent + "??);
 									if (isCalOn)
-									cal.addEvent(getNowTime() + " ¦h³æ°±§Q:" + input
-											+ " " + abscurrent + "¤f");*/
+									cal.addEvent(getNowTime() + " å¤šå–®?œåˆ©:" + input
+											+ " " + abscurrent + "??);*/
 								} else {
 									lost = lost + (price[i] - input);
 									total = total - (price[i] - input);
@@ -1166,15 +1166,15 @@ public class NewDdeClient {
 											+ " BUYHIGHML1! cost:" + input);
 									/*if (isGtalkOn)
 									g.alert(botname, Email, getNowTime()
-											+ " HIGHL1¦h³æ°±·l:" + input + " "
-											+ abscurrent + "¤f");
+											+ " HIGHL1å¤šå–®?œæ?:" + input + " "
+											+ abscurrent + "??);
 									if (isFBOn)
 									f.alert(botname, getNowTime()
-											+ " ¦h³æ°±·l:" + input + " "
-											+ abscurrent + "¤f");
+											+ " å¤šå–®?œæ?:" + input + " "
+											+ abscurrent + "??);
 									if (isCalOn)
-									cal.addEvent(getNowTime() + " ¦h³æ°±§Q:" + input
-											+ " " + abscurrent + "¤f");*/
+									cal.addEvent(getNowTime() + " å¤šå–®?œåˆ©:" + input
+											+ " " + abscurrent + "??);*/
 								}
 							}
 							init();
@@ -1186,7 +1186,7 @@ public class NewDdeClient {
 				} else {
 					if ((SGXTWGap() + 0.0012) < 0) {
 						if (input > (price[abscurrent - 1] + sval)) {
-							// ¦h¤è°±§Q
+							// å¤šæ–¹?œåˆ©
 							for (int i = 0; i < abscurrent; i++) {
 								if (input > price[i]) {
 									win = win + (input - price[i]);
@@ -1195,15 +1195,15 @@ public class NewDdeClient {
 											+ " BUYHIGHMW2! cost:" + input);
 									/*if (isGtalkOn)
 									g.alert(botname, Email, getNowTime()
-											+ " HIGHM2¦h³æ°±§Q:" + input + " "
-											+ abscurrent + "¤f");
+											+ " HIGHM2å¤šå–®?œåˆ©:" + input + " "
+											+ abscurrent + "??);
 									if (isFBOn)
 									f.alert(botname, getNowTime()
-											+ " ¦h³æ°±§Q:" + input + " "
-											+ abscurrent + "¤f");
+											+ " å¤šå–®?œåˆ©:" + input + " "
+											+ abscurrent + "??);
 									if (isCalOn)
-									cal.addEvent(getNowTime() + " ¦h³æ°±§Q:" + input
-											+ " " + abscurrent + "¤f");*/
+									cal.addEvent(getNowTime() + " å¤šå–®?œåˆ©:" + input
+											+ " " + abscurrent + "??);*/
 								} else {
 									lost = lost + (price[i] - input);
 									total = total - (price[i] - input);
@@ -1211,15 +1211,15 @@ public class NewDdeClient {
 											+ " BUYHIGHML2! cost:" + input);
 									/*if (isGtalkOn)
 									g.alert(botname, Email, getNowTime()
-											+ " HIGHL2¦h³æ°±·l:" + input + " "
-											+ abscurrent + "¤f");
+											+ " HIGHL2å¤šå–®?œæ?:" + input + " "
+											+ abscurrent + "??);
 									if (isFBOn)
 									f.alert(botname, getNowTime()
-											+ " ¦h³æ°±·l:" + input + " "
-											+ abscurrent + "¤f");
+											+ " å¤šå–®?œæ?:" + input + " "
+											+ abscurrent + "??);
 									if (isCalOn)
-									cal.addEvent(getNowTime() + " ¦h³æ°±§Q:" + input
-											+ " " + abscurrent + "¤f");*/
+									cal.addEvent(getNowTime() + " å¤šå–®?œåˆ©:" + input
+											+ " " + abscurrent + "??);*/
 								}
 							}
 							init();
@@ -1233,9 +1233,9 @@ public class NewDdeClient {
 		} else if (current < 0) {
 			if ((SGXTWGap() + SGXGap) >= 0) {
 				if (getHighLowPro(false) > highoutgap) {
-					if ((input >= (lowo + GapvoloutH)) && hlflag == -1) { // §PÂ_¬O§_§CÂI¦^ÀÉ
+					if ((input >= (lowo + GapvoloutH)) && hlflag == -1) { // ?¤æ–·?¯å¦ä½é??æ?
 						if (input < (price[abscurrent - 1] - sval)) {
-							// ªÅ¤è°±·l
+							// ç©ºæ–¹?œæ?
 							for (int i = 0; i < abscurrent; i++) {
 								if (input < price[i]) {
 									win = win + (price[i] - input);
@@ -1244,15 +1244,15 @@ public class NewDdeClient {
 											+ " SELLHIGHW1! cost:" + input);
 									/*if (isGtalkOn)
 									g.alert(botname, Email, getNowTime()
-											+ " HIGHM1ªÅ³æ°±§Q:" + input + " "
-											+ abscurrent + "¤f");
+											+ " HIGHM1ç©ºå–®?œåˆ©:" + input + " "
+											+ abscurrent + "??);
 									if (isFBOn)
 									f.alert(botname, getNowTime()
-											+ " ªÅ³æ°±§Q:" + input + " "
-											+ abscurrent + "¤f");
+											+ " ç©ºå–®?œåˆ©:" + input + " "
+											+ abscurrent + "??);
 									if (isCalOn)
-									cal.addEvent(getNowTime() + " ªÅ³æ°±§Q:" + input
-											+ " " + abscurrent + "¤f");*/
+									cal.addEvent(getNowTime() + " ç©ºå–®?œåˆ©:" + input
+											+ " " + abscurrent + "??);*/
 								} else {
 									lost = lost + (input - price[i]);
 									total = total - (input - price[i]);
@@ -1260,15 +1260,15 @@ public class NewDdeClient {
 											+ " SELLHIGHL1! cost:" + input);
 									/*if (isGtalkOn)
 									g.alert(botname, Email, getNowTime()
-											+ " HIGHL1ªÅ³æ°±·l:" + input + " "
-											+ abscurrent + "¤f");
+											+ " HIGHL1ç©ºå–®?œæ?:" + input + " "
+											+ abscurrent + "??);
 									if (isFBOn)
 									f.alert(botname, getNowTime()
-											+ " ªÅ³æ°±·l:" + input + " "
-											+ abscurrent + "¤f");
+											+ " ç©ºå–®?œæ?:" + input + " "
+											+ abscurrent + "??);
 									if (isCalOn)
-									cal.addEvent(getNowTime() + " ªÅ³æ°±·l:" + input
-											+ " " + abscurrent + "¤f");*/
+									cal.addEvent(getNowTime() + " ç©ºå–®?œæ?:" + input
+											+ " " + abscurrent + "??);*/
 								}
 							}
 							init();
@@ -1280,7 +1280,7 @@ public class NewDdeClient {
 				} else {
 					if ((SGXTWGap() - 0.0012) > 0) {
 						if (input < (price[abscurrent - 1] - sval)) {
-							// ªÅ¤è°±·l
+							// ç©ºæ–¹?œæ?
 							for (int i = 0; i < abscurrent; i++) {
 								if (input < price[i]) {
 									win = win + (price[i] - input);
@@ -1289,15 +1289,15 @@ public class NewDdeClient {
 											+ " SELLHIGHW2! cost:" + input);
 									/*if (isGtalkOn)
 									g.alert(botname, Email, getNowTime()
-											+ " HIGHM2ªÅ³æ°±§Q:" + input + " "
-											+ abscurrent + "¤f");
+											+ " HIGHM2ç©ºå–®?œåˆ©:" + input + " "
+											+ abscurrent + "??);
 									if (isFBOn)
 									f.alert(botname, getNowTime()
-											+ " ªÅ³æ°±§Q:" + input + " "
-											+ abscurrent + "¤f");
+											+ " ç©ºå–®?œåˆ©:" + input + " "
+											+ abscurrent + "??);
 									if (isCalOn)
-									cal.addEvent(getNowTime() + " ªÅ³æ°±§Q:" + input
-											+ " " + abscurrent + "¤f");*/
+									cal.addEvent(getNowTime() + " ç©ºå–®?œåˆ©:" + input
+											+ " " + abscurrent + "??);*/
 								} else {
 									lost = lost + (input - price[i]);
 									total = total - (input - price[i]);
@@ -1305,15 +1305,15 @@ public class NewDdeClient {
 											+ " SELLHIGHL2! cost:" + input);
 									/*if (isGtalkOn)
 									g.alert(botname, Email, getNowTime()
-											+ " HIGHL2ªÅ³æ°±·l:" + input + " "
-											+ abscurrent + "¤f");
+											+ " HIGHL2ç©ºå–®?œæ?:" + input + " "
+											+ abscurrent + "??);
 									if (isFBOn)
 									f.alert(botname, getNowTime()
-											+ " ªÅ³æ°±·l:" + input + " "
-											+ abscurrent + "¤f");
+											+ " ç©ºå–®?œæ?:" + input + " "
+											+ abscurrent + "??);
 									if (isCalOn)
-									cal.addEvent(getNowTime() + " ªÅ³æ°±·l:" + input
-											+ " " + abscurrent + "¤f");*/
+									cal.addEvent(getNowTime() + " ç©ºå–®?œæ?:" + input
+											+ " " + abscurrent + "??);*/
 								}
 							}
 							init();
@@ -1329,8 +1329,8 @@ public class NewDdeClient {
 
 	private void checkout1(int input, boolean up) {
 		if (current > 0) {
-			if ((input <= (higho - GapvoloutH)) && hlflag == 1 && (SGXTWGap() - SGXGap56) < 0) { // §PÂ_¬O§_°ªÂI¦^ÀÉ
-				if (input <= price[0]) { // ¦h¤è°±·l
+			if ((input <= (higho - GapvoloutH)) && hlflag == 1 && (SGXTWGap() - SGXGap56) < 0) { // ?¤æ–·?¯å¦é«˜é??æ?
+				if (input <= price[0]) { // å¤šæ–¹?œæ?
 					current = 0;
 					writetxt(input);
 					for (int i = 0; i < abscurrent; i++) {
@@ -1339,16 +1339,16 @@ public class NewDdeClient {
 					}
 					init();
 					txt.setOutput(getNowTime() + " BUY1L! cost:" + input + " "
-							+ abscurrent + "¤f");
+							+ abscurrent + "??);
 					/*if (isGtalkOn)
-					g.alert(botname, Email, getNowTime() + " ¦h³æ°±·l:" + input
-							+ " " + abscurrent + "¤f");
+					g.alert(botname, Email, getNowTime() + " å¤šå–®?œæ?:" + input
+							+ " " + abscurrent + "??);
 					if (isFBOn)
-					f.alert(botname, getNowTime() + " ¦h³æ°±·l:" + input + " "
-							+ abscurrent + "¤f");
+					f.alert(botname, getNowTime() + " å¤šå–®?œæ?:" + input + " "
+							+ abscurrent + "??);
 					if (isCalOn)
-					cal.addEvent(getNowTime() + " ¦h³æ°±·l:" + input + " "
-							+ abscurrent + "¤f");*/
+					cal.addEvent(getNowTime() + " å¤šå–®?œæ?:" + input + " "
+							+ abscurrent + "??);*/
 				} else {
 					current = 0;
 					writetxt(input);
@@ -1358,21 +1358,21 @@ public class NewDdeClient {
 					}
 					init();
 					txt.setOutput(getNowTime() + " BUY1W! cost:" + input + " "
-							+ abscurrent + "¤f");
+							+ abscurrent + "??);
 					/*if (isGtalkOn)
-					g.alert(botname, Email, getNowTime() + " ¦h³æ°±§Q:" + input
-							+ " " + abscurrent + "¤f");
+					g.alert(botname, Email, getNowTime() + " å¤šå–®?œåˆ©:" + input
+							+ " " + abscurrent + "??);
 					if (isFBOn)
-					f.alert(botname, getNowTime() + " ¦h³æ°±§Q:" + input + " "
-							+ abscurrent + "¤f");
+					f.alert(botname, getNowTime() + " å¤šå–®?œåˆ©:" + input + " "
+							+ abscurrent + "??);
 					if (isCalOn)
-					cal.addEvent(getNowTime() + " ¦h³æ°±§Q:" + input + " "
-							+ abscurrent + "¤f");*/
+					cal.addEvent(getNowTime() + " å¤šå–®?œåˆ©:" + input + " "
+							+ abscurrent + "??);*/
 				}
 			} else {
 				if (!up) {
 					if (!((SGXTWGap() - 0.0012) > 0)) {
-						if (input <= price[0]) { // ¦h¤è°±·l
+						if (input <= price[0]) { // å¤šæ–¹?œæ?
 							current = 0;
 							writetxt(input);
 							for (int i = 0; i < abscurrent; i++) {
@@ -1381,16 +1381,16 @@ public class NewDdeClient {
 							}
 							init();
 							txt.setOutput(getNowTime() + " BUYL! cost:" + input
-									+ " " + abscurrent + "¤f");
+									+ " " + abscurrent + "??);
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + " ¦h³æ°±·l:"
-									+ input + " " + abscurrent + "¤f");
+							g.alert(botname, Email, getNowTime() + " å¤šå–®?œæ?:"
+									+ input + " " + abscurrent + "??);
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " ¦h³æ°±·l:"
-									+ input + " " + abscurrent + "¤f");
+							f.alert(botname, getNowTime() + " å¤šå–®?œæ?:"
+									+ input + " " + abscurrent + "??);
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " ¦h³æ°±·l:" + input + " "
-									+ abscurrent + "¤f");*/
+							cal.addEvent(getNowTime() + " å¤šå–®?œæ?:" + input + " "
+									+ abscurrent + "??);*/
 						} else {
 							current = 0;
 							writetxt(input);
@@ -1400,16 +1400,16 @@ public class NewDdeClient {
 							}
 							init();
 							txt.setOutput(getNowTime() + " BUYW! cost:" + input
-									+ " " + abscurrent + "¤f");
+									+ " " + abscurrent + "??);
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + " ¦h³æ°±§Q:"
-									+ input + " " + abscurrent + "¤f");
+							g.alert(botname, Email, getNowTime() + " å¤šå–®?œåˆ©:"
+									+ input + " " + abscurrent + "??);
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " ¦h³æ°±§Q:"
-									+ input + " " + abscurrent + "¤f");
+							f.alert(botname, getNowTime() + " å¤šå–®?œåˆ©:"
+									+ input + " " + abscurrent + "??);
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " ¦h³æ°±§Q:" + input + " "
-									+ abscurrent + "¤f");*/
+							cal.addEvent(getNowTime() + " å¤šå–®?œåˆ©:" + input + " "
+									+ abscurrent + "??);*/
 						}
 					}
 				} else {
@@ -1423,25 +1423,25 @@ public class NewDdeClient {
 							abscurrent = Math.abs(current);
 							writetxt(0);
 							txt.setOutput(getNowTime() + " max3:" + input + " "
-									+ abscurrent + "¤f");
+									+ abscurrent + "??);
 							// range += 2;
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + " ¦h³æ¥[½X:"
-									+ input + " " + abscurrent + "¤f");
+							g.alert(botname, Email, getNowTime() + " å¤šå–®? ç¢¼:"
+									+ input + " " + abscurrent + "??);
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " ¦h³æ¥[½X:"
-									+ input + " " + abscurrent + "¤f");
+							f.alert(botname, getNowTime() + " å¤šå–®? ç¢¼:"
+									+ input + " " + abscurrent + "??);
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " ¦h³æ¥[½X:" + input + " "
-									+ abscurrent + "¤f");*/
+							cal.addEvent(getNowTime() + " å¤šå–®? ç¢¼:" + input + " "
+									+ abscurrent + "??);*/
 							hlflag = 0;
 						}
 					}
 				}
 			}
 		} else if (current < 0) {
-			if ((input >= (lowo + GapvoloutH)) && hlflag == -1 && (SGXTWGap() + SGXGap56) > 0) { // §PÂ_¬O§_§CÂI¦^ÀÉ
-				if (input >= price[0]) { // ªÅ¤è°±·l
+			if ((input >= (lowo + GapvoloutH)) && hlflag == -1 && (SGXTWGap() + SGXGap56) > 0) { // ?¤æ–·?¯å¦ä½é??æ?
+				if (input >= price[0]) { // ç©ºæ–¹?œæ?
 					current = 0;
 					writetxt(input);
 					for (int i = 0; i < abscurrent; i++) {
@@ -1450,16 +1450,16 @@ public class NewDdeClient {
 					}
 					init();
 					txt.setOutput(getNowTime() + " SELL1L! cost:" + input + " "
-							+ abscurrent + "¤f");
+							+ abscurrent + "??);
 					/*if (isGtalkOn)
-					g.alert(botname, Email, getNowTime() + " ªÅ³æ°±·l:" + input
-							+ " " + abscurrent + "¤f");
+					g.alert(botname, Email, getNowTime() + " ç©ºå–®?œæ?:" + input
+							+ " " + abscurrent + "??);
 					if (isFBOn)
-					f.alert(botname, getNowTime() + " ªÅ³æ°±·l:" + input + " "
-							+ abscurrent + "¤f");
+					f.alert(botname, getNowTime() + " ç©ºå–®?œæ?:" + input + " "
+							+ abscurrent + "??);
 					if (isCalOn)
-					cal.addEvent(getNowTime() + " ªÅ³æ°±·l:" + input + " "
-							+ abscurrent + "¤f");*/
+					cal.addEvent(getNowTime() + " ç©ºå–®?œæ?:" + input + " "
+							+ abscurrent + "??);*/
 				} else {
 					current = 0;
 					writetxt(input);
@@ -1469,21 +1469,21 @@ public class NewDdeClient {
 					}
 					init();
 					txt.setOutput(getNowTime() + " SELL1! cost:" + input + " "
-							+ abscurrent + "¤f");
+							+ abscurrent + "??);
 					/*if (isGtalkOn)
-					g.alert(botname, Email, getNowTime() + " ªÅ³æ°±§Q:" + input
-							+ " " + abscurrent + "¤f");
+					g.alert(botname, Email, getNowTime() + " ç©ºå–®?œåˆ©:" + input
+							+ " " + abscurrent + "??);
 					if (isFBOn)
-					f.alert(botname, getNowTime() + " ªÅ³æ°±§Q:" + input + " "
-							+ abscurrent + "¤f");
+					f.alert(botname, getNowTime() + " ç©ºå–®?œåˆ©:" + input + " "
+							+ abscurrent + "??);
 					if (isCalOn)
-					cal.addEvent(getNowTime() + " ªÅ³æ°±§Q:" + input + " "
-							+ abscurrent + "¤f");*/
+					cal.addEvent(getNowTime() + " ç©ºå–®?œåˆ©:" + input + " "
+							+ abscurrent + "??);*/
 				}
 			} else {
 				if (up) {
 					if (!((SGXTWGap() + 0.0012) < 0)) {
-						if (input >= price[0]) { // ªÅ¤è°±·l
+						if (input >= price[0]) { // ç©ºæ–¹?œæ?
 							current = 0;
 							writetxt(input);
 							for (int i = 0; i < abscurrent; i++) {
@@ -1492,16 +1492,16 @@ public class NewDdeClient {
 							}
 							init();
 							txt.setOutput(getNowTime() + " SELLL! cost:"
-									+ input + " " + abscurrent + "¤f");
+									+ input + " " + abscurrent + "??);
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + " ªÅ³æ°±·l:"
-									+ input + " " + abscurrent + "¤f");
+							g.alert(botname, Email, getNowTime() + " ç©ºå–®?œæ?:"
+									+ input + " " + abscurrent + "??);
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " ªÅ³æ°±·l:"
-									+ input + " " + abscurrent + "¤f");
+							f.alert(botname, getNowTime() + " ç©ºå–®?œæ?:"
+									+ input + " " + abscurrent + "??);
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " ªÅ³æ°±·l:" + input + " "
-									+ abscurrent + "¤f");*/
+							cal.addEvent(getNowTime() + " ç©ºå–®?œæ?:" + input + " "
+									+ abscurrent + "??);*/
 						} else {
 							current = 0;
 							writetxt(input);
@@ -1511,16 +1511,16 @@ public class NewDdeClient {
 							}
 							init();
 							txt.setOutput(getNowTime() + " SELLW! cost:"
-									+ input + " " + abscurrent + "¤f");
+									+ input + " " + abscurrent + "??);
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + " ªÅ³æ°±§Q:"
-									+ input + " " + abscurrent + "¤f");
+							g.alert(botname, Email, getNowTime() + " ç©ºå–®?œåˆ©:"
+									+ input + " " + abscurrent + "??);
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " ªÅ³æ°±§Q:"
-									+ input + " " + abscurrent + "¤f");
+							f.alert(botname, getNowTime() + " ç©ºå–®?œåˆ©:"
+									+ input + " " + abscurrent + "??);
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " ªÅ³æ°±§Q:" + input + " "
-									+ abscurrent + "¤f");*/
+							cal.addEvent(getNowTime() + " ç©ºå–®?œåˆ©:" + input + " "
+									+ abscurrent + "??);*/
 						}
 					}
 				} else {
@@ -1534,17 +1534,17 @@ public class NewDdeClient {
 							abscurrent = Math.abs(current);
 							writetxt(0);
 							txt.setOutput(getNowTime() + " min3:" + input + " "
-									+ abscurrent + "¤f");
+									+ abscurrent + "??);
 							// range += 2;
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + " ªÅ³æ¥[½X:"
-									+ input + " " + abscurrent + "¤f");
+							g.alert(botname, Email, getNowTime() + " ç©ºå–®? ç¢¼:"
+									+ input + " " + abscurrent + "??);
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " ªÅ³æ¥[½X:"
-									+ input + " " + abscurrent + "¤f");
+							f.alert(botname, getNowTime() + " ç©ºå–®? ç¢¼:"
+									+ input + " " + abscurrent + "??);
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " ªÅ³æ¥[½X:" + input + " "
-									+ abscurrent + "¤f");*/
+							cal.addEvent(getNowTime() + " ç©ºå–®? ç¢¼:" + input + " "
+									+ abscurrent + "??);*/
 							hlflag = 0;
 						}
 					}
@@ -1555,8 +1555,8 @@ public class NewDdeClient {
 	
 	private void checkout2(int input, boolean up) {
 		if (current > 0) {
-			if ((input <= (higho - GapvoloutH)) && hlflag == 1 && (SGXTWGap() - SGXGap56) < 0) { // §PÂ_¬O§_°ªÂI¦^ÀÉ
-				if (input <= price[0]) { // ¦h¤è°±·l
+			if ((input <= (higho - GapvoloutH)) && hlflag == 1 && (SGXTWGap() - SGXGap56) < 0) { // ?¤æ–·?¯å¦é«˜é??æ?
+				if (input <= price[0]) { // å¤šæ–¹?œæ?
 					current = 0;
 					writetxt(input);
 					for (int i = 0; i < abscurrent; i++) {
@@ -1565,16 +1565,16 @@ public class NewDdeClient {
 					}
 					init();
 					txt.setOutput(getNowTime() + " BUY1L! cost:" + input + " "
-							+ abscurrent + "¤f");
+							+ abscurrent + "??);
 					/*if (isGtalkOn)
-					g.alert(botname, Email, getNowTime() + " ¦h³æ°±·l:" + input
-							+ " " + abscurrent + "¤f");
+					g.alert(botname, Email, getNowTime() + " å¤šå–®?œæ?:" + input
+							+ " " + abscurrent + "??);
 					if (isFBOn)
-					f.alert(botname, getNowTime() + " ¦h³æ°±·l:" + input + " "
-							+ abscurrent + "¤f");
+					f.alert(botname, getNowTime() + " å¤šå–®?œæ?:" + input + " "
+							+ abscurrent + "??);
 					if (isCalOn)
-					cal.addEvent(getNowTime() + " ¦h³æ°±·l:" + input + " "
-							+ abscurrent + "¤f");*/
+					cal.addEvent(getNowTime() + " å¤šå–®?œæ?:" + input + " "
+							+ abscurrent + "??);*/
 				} else {
 					current = 0;
 					writetxt(input);
@@ -1584,21 +1584,21 @@ public class NewDdeClient {
 					}
 					init();
 					txt.setOutput(getNowTime() + " BUY1W! cost:" + input + " "
-							+ abscurrent + "¤f");
+							+ abscurrent + "??);
 					/*if (isGtalkOn)
-					g.alert(botname, Email, getNowTime() + " ¦h³æ°±§Q:" + input
-							+ " " + abscurrent + "¤f");
+					g.alert(botname, Email, getNowTime() + " å¤šå–®?œåˆ©:" + input
+							+ " " + abscurrent + "??);
 					if (isFBOn)
-					f.alert(botname, getNowTime() + " ¦h³æ°±§Q:" + input + " "
-							+ abscurrent + "¤f");
+					f.alert(botname, getNowTime() + " å¤šå–®?œåˆ©:" + input + " "
+							+ abscurrent + "??);
 					if (isCalOn)
-					cal.addEvent(getNowTime() + " ¦h³æ°±§Q:" + input + " "
-							+ abscurrent + "¤f");*/
+					cal.addEvent(getNowTime() + " å¤šå–®?œåˆ©:" + input + " "
+							+ abscurrent + "??);*/
 				}
 			} else {
 				if (!up) {
 					if (!((SGXTWGap() - 0.0012) > 0)) {
-						if (input <= price[0]) { // ¦h¤è°±·l
+						if (input <= price[0]) { // å¤šæ–¹?œæ?
 							current = 0;
 							writetxt(input);
 							for (int i = 0; i < abscurrent; i++) {
@@ -1607,16 +1607,16 @@ public class NewDdeClient {
 							}
 							init();
 							txt.setOutput(getNowTime() + " BUYL! cost:" + input
-									+ " " + abscurrent + "¤f");
+									+ " " + abscurrent + "??);
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + " ¦h³æ°±·l:"
-									+ input + " " + abscurrent + "¤f");
+							g.alert(botname, Email, getNowTime() + " å¤šå–®?œæ?:"
+									+ input + " " + abscurrent + "??);
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " ¦h³æ°±·l:"
-									+ input + " " + abscurrent + "¤f");
+							f.alert(botname, getNowTime() + " å¤šå–®?œæ?:"
+									+ input + " " + abscurrent + "??);
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " ¦h³æ°±·l:" + input + " "
-									+ abscurrent + "¤f");*/
+							cal.addEvent(getNowTime() + " å¤šå–®?œæ?:" + input + " "
+									+ abscurrent + "??);*/
 						} else {
 							current = 0;
 							writetxt(input);
@@ -1626,16 +1626,16 @@ public class NewDdeClient {
 							}
 							init();
 							txt.setOutput(getNowTime() + " BUYW! cost:" + input
-									+ " " + abscurrent + "¤f");
+									+ " " + abscurrent + "??);
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + " ¦h³æ°±§Q:"
-									+ input + " " + abscurrent + "¤f");
+							g.alert(botname, Email, getNowTime() + " å¤šå–®?œåˆ©:"
+									+ input + " " + abscurrent + "??);
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " ¦h³æ°±§Q:"
-									+ input + " " + abscurrent + "¤f");
+							f.alert(botname, getNowTime() + " å¤šå–®?œåˆ©:"
+									+ input + " " + abscurrent + "??);
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " ¦h³æ°±§Q:" + input + " "
-									+ abscurrent + "¤f");*/
+							cal.addEvent(getNowTime() + " å¤šå–®?œåˆ©:" + input + " "
+									+ abscurrent + "??);*/
 						}
 					}
 				} else {
@@ -1649,25 +1649,25 @@ public class NewDdeClient {
 							abscurrent = Math.abs(current);
 							writetxt(0);
 							txt.setOutput(getNowTime() + " max4:" + input + " "
-									+ abscurrent + "¤f");
+									+ abscurrent + "??);
 							// range += 2;
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + " ¦h³æ¥[½X:"
-									+ input + " " + abscurrent + "¤f");
+							g.alert(botname, Email, getNowTime() + " å¤šå–®? ç¢¼:"
+									+ input + " " + abscurrent + "??);
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " ¦h³æ¥[½X:"
-									+ input + " " + abscurrent + "¤f");
+							f.alert(botname, getNowTime() + " å¤šå–®? ç¢¼:"
+									+ input + " " + abscurrent + "??);
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " ¦h³æ¥[½X:" + input + " "
-									+ abscurrent + "¤f");*/
+							cal.addEvent(getNowTime() + " å¤šå–®? ç¢¼:" + input + " "
+									+ abscurrent + "??);*/
 							hlflag = 0;
 						}
 					}
 				}
 			}
 		} else if (current < 0) {
-			if ((input >= (lowo + GapvoloutH)) && hlflag == -1 && (SGXTWGap() + SGXGap56) > 0) { // §PÂ_¬O§_§CÂI¦^ÀÉ
-				if (input >= price[0]) { // ªÅ¤è°±·l
+			if ((input >= (lowo + GapvoloutH)) && hlflag == -1 && (SGXTWGap() + SGXGap56) > 0) { // ?¤æ–·?¯å¦ä½é??æ?
+				if (input >= price[0]) { // ç©ºæ–¹?œæ?
 					current = 0;
 					writetxt(input);
 					for (int i = 0; i < abscurrent; i++) {
@@ -1676,16 +1676,16 @@ public class NewDdeClient {
 					}
 					init();
 					txt.setOutput(getNowTime() + " SELL1L! cost:" + input + " "
-							+ abscurrent + "¤f");
+							+ abscurrent + "??);
 					/*if (isGtalkOn)
-					g.alert(botname, Email, getNowTime() + " ªÅ³æ°±·l:" + input
-							+ " " + abscurrent + "¤f");
+					g.alert(botname, Email, getNowTime() + " ç©ºå–®?œæ?:" + input
+							+ " " + abscurrent + "??);
 					if (isFBOn)
-					f.alert(botname, getNowTime() + " ªÅ³æ°±·l:" + input + " "
-							+ abscurrent + "¤f");
+					f.alert(botname, getNowTime() + " ç©ºå–®?œæ?:" + input + " "
+							+ abscurrent + "??);
 					if (isCalOn)
-					cal.addEvent(getNowTime() + " ªÅ³æ°±·l:" + input + " "
-							+ abscurrent + "¤f");*/
+					cal.addEvent(getNowTime() + " ç©ºå–®?œæ?:" + input + " "
+							+ abscurrent + "??);*/
 				} else {
 					current = 0;
 					writetxt(input);
@@ -1695,21 +1695,21 @@ public class NewDdeClient {
 					}
 					init();
 					txt.setOutput(getNowTime() + " SELL1! cost:" + input + " "
-							+ abscurrent + "¤f");
+							+ abscurrent + "??);
 					/*if (isGtalkOn)
-					g.alert(botname, Email, getNowTime() + " ªÅ³æ°±§Q:" + input
-							+ " " + abscurrent + "¤f");
+					g.alert(botname, Email, getNowTime() + " ç©ºå–®?œåˆ©:" + input
+							+ " " + abscurrent + "??);
 					if (isFBOn)
-					f.alert(botname, getNowTime() + " ªÅ³æ°±§Q:" + input + " "
-							+ abscurrent + "¤f");
+					f.alert(botname, getNowTime() + " ç©ºå–®?œåˆ©:" + input + " "
+							+ abscurrent + "??);
 					if (isCalOn)
-					cal.addEvent(getNowTime() + " ªÅ³æ°±§Q:" + input + " "
-							+ abscurrent + "¤f");*/
+					cal.addEvent(getNowTime() + " ç©ºå–®?œåˆ©:" + input + " "
+							+ abscurrent + "??);*/
 				}
 			} else {
 				if (up) {
 					if (!((SGXTWGap() + 0.0012) < 0)) {
-						if (input >= price[0]) { // ªÅ¤è°±·l
+						if (input >= price[0]) { // ç©ºæ–¹?œæ?
 							current = 0;
 							writetxt(input);
 							for (int i = 0; i < abscurrent; i++) {
@@ -1718,16 +1718,16 @@ public class NewDdeClient {
 							}
 							init();
 							txt.setOutput(getNowTime() + " SELLL! cost:"
-									+ input + " " + abscurrent + "¤f");
+									+ input + " " + abscurrent + "??);
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + " ªÅ³æ°±·l:"
-									+ input + " " + abscurrent + "¤f");
+							g.alert(botname, Email, getNowTime() + " ç©ºå–®?œæ?:"
+									+ input + " " + abscurrent + "??);
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " ªÅ³æ°±·l:"
-									+ input + " " + abscurrent + "¤f");
+							f.alert(botname, getNowTime() + " ç©ºå–®?œæ?:"
+									+ input + " " + abscurrent + "??);
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " ªÅ³æ°±·l:" + input + " "
-									+ abscurrent + "¤f");*/
+							cal.addEvent(getNowTime() + " ç©ºå–®?œæ?:" + input + " "
+									+ abscurrent + "??);*/
 						} else {
 							current = 0;
 							writetxt(input);
@@ -1737,16 +1737,16 @@ public class NewDdeClient {
 							}
 							init();
 							txt.setOutput(getNowTime() + " SELLW! cost:"
-									+ input + " " + abscurrent + "¤f");
+									+ input + " " + abscurrent + "??);
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + " ªÅ³æ°±§Q:"
-									+ input + " " + abscurrent + "¤f");
+							g.alert(botname, Email, getNowTime() + " ç©ºå–®?œåˆ©:"
+									+ input + " " + abscurrent + "??);
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " ªÅ³æ°±§Q:"
-									+ input + " " + abscurrent + "¤f");
+							f.alert(botname, getNowTime() + " ç©ºå–®?œåˆ©:"
+									+ input + " " + abscurrent + "??);
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " ªÅ³æ°±§Q:" + input + " "
-									+ abscurrent + "¤f");*/
+							cal.addEvent(getNowTime() + " ç©ºå–®?œåˆ©:" + input + " "
+									+ abscurrent + "??);*/
 						}
 					}
 				} else {
@@ -1760,17 +1760,17 @@ public class NewDdeClient {
 							abscurrent = Math.abs(current);
 							writetxt(0);
 							txt.setOutput(getNowTime() + " min4:" + input + " "
-									+ abscurrent + "¤f");
+									+ abscurrent + "??);
 							// range += 2;
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + " ªÅ³æ¥[½X:"
-									+ input + " " + abscurrent + "¤f");
+							g.alert(botname, Email, getNowTime() + " ç©ºå–®? ç¢¼:"
+									+ input + " " + abscurrent + "??);
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " ªÅ³æ¥[½X:"
-									+ input + " " + abscurrent + "¤f");
+							f.alert(botname, getNowTime() + " ç©ºå–®? ç¢¼:"
+									+ input + " " + abscurrent + "??);
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " ªÅ³æ¥[½X:" + input + " "
-									+ abscurrent + "¤f");*/
+							cal.addEvent(getNowTime() + " ç©ºå–®? ç¢¼:" + input + " "
+									+ abscurrent + "??);*/
 							hlflag = 0;
 						}
 					}
@@ -1785,7 +1785,7 @@ public class NewDdeClient {
 				if (SGXTWGap() > 0)
 					sval = svalA + (int) (SGXTWGap() / 0.0012) * 5;
 				if (!(SGXTWGap() > 0.00248)) {
-					if (input <= (price[abscurrent - 1] - sval)) { // ¦h¤è°±·l
+					if (input <= (price[abscurrent - 1] - sval)) { // å¤šæ–¹?œæ?
 						current = 0;
 						writetxt(input);
 						for (int i = 0; i < abscurrent; i++) {
@@ -1799,19 +1799,19 @@ public class NewDdeClient {
 						}
 						init();
 						txt.setOutput(getNowTime() + " BUYLN! cost:" + input
-								+ " " + abscurrent + "¤f");
+								+ " " + abscurrent + "??);
 						/*if (isGtalkOn)
-						g.alert(botname, Email, getNowTime() + " ¦h³æ°±·l:" + input
-								+ " " + abscurrent + "¤f");
+						g.alert(botname, Email, getNowTime() + " å¤šå–®?œæ?:" + input
+								+ " " + abscurrent + "??);
 						if (isFBOn)
-						f.alert(botname, getNowTime() + " ¦h³æ°±·l:" + input
-								+ " " + abscurrent + "¤f");
+						f.alert(botname, getNowTime() + " å¤šå–®?œæ?:" + input
+								+ " " + abscurrent + "??);
 						if (isCalOn)
-						cal.addEvent(getNowTime() + " ¦h³æ°±·l:" + input + " "
-								+ abscurrent + "¤f");*/
+						cal.addEvent(getNowTime() + " å¤šå–®?œæ?:" + input + " "
+								+ abscurrent + "??);*/
 						sval = 30;
 					}
-				} else if (input <= (price[abscurrent - 1] - svalT)) { // ¦h¤è°±·l
+				} else if (input <= (price[abscurrent - 1] - svalT)) { // å¤šæ–¹?œæ?
 					int wint = 0;
 					int lostt = 0;
 					int totalt = total;
@@ -1838,16 +1838,16 @@ public class NewDdeClient {
 						}
 						init();
 						txt.setOutput(getNowTime() + " BUYL80! cost:" + input
-								+ " " + abscurrent + "¤f");
+								+ " " + abscurrent + "??);
 						/*if (isGtalkOn)
-						g.alert(botname, Email, getNowTime() + " ¦h³æ°±·l:" + input
-								+ " " + abscurrent + "¤f");
+						g.alert(botname, Email, getNowTime() + " å¤šå–®?œæ?:" + input
+								+ " " + abscurrent + "??);
 						if (isFBOn)
-						f.alert(botname, getNowTime() + " ¦h³æ°±·l:" + input
-								+ " " + abscurrent + "¤f");
+						f.alert(botname, getNowTime() + " å¤šå–®?œæ?:" + input
+								+ " " + abscurrent + "??);
 						if (isCalOn)
-						cal.addEvent(getNowTime() + " ¦h³æ°±·l:" + input + " "
-								+ abscurrent + "¤f");*/
+						cal.addEvent(getNowTime() + " å¤šå–®?œæ?:" + input + " "
+								+ abscurrent + "??);*/
 						sval = 30;
 						runflag = false;
 					}
@@ -1856,7 +1856,7 @@ public class NewDdeClient {
 				if (SGXTWGap() < 0)
 					sval = svalA + (int) (SGXTWGap() / -0.0012) * 5;
 				if (!(SGXTWGap() < -0.00248)) {
-					if (input >= (price[abscurrent - 1] + sval)) { // ªÅ¤è°±·l
+					if (input >= (price[abscurrent - 1] + sval)) { // ç©ºæ–¹?œæ?
 						current = 0;
 						writetxt(input);
 						for (int i = 0; i < abscurrent; i++) {
@@ -1870,19 +1870,19 @@ public class NewDdeClient {
 						}
 						init();
 						txt.setOutput(getNowTime() + " SELLLN! cost:" + input
-								+ " " + abscurrent + "¤f");
+								+ " " + abscurrent + "??);
 						/*if (isGtalkOn)
-						g.alert(botname, Email, getNowTime() + " ªÅ³æ°±·l:" + input
-								+ " " + abscurrent + "¤f");
+						g.alert(botname, Email, getNowTime() + " ç©ºå–®?œæ?:" + input
+								+ " " + abscurrent + "??);
 						if (isFBOn)
-						f.alert(botname, getNowTime() + " ªÅ³æ°±·l:" + input
-								+ " " + abscurrent + "¤f");
+						f.alert(botname, getNowTime() + " ç©ºå–®?œæ?:" + input
+								+ " " + abscurrent + "??);
 						if (isCalOn)
-						cal.addEvent(getNowTime() + " ªÅ³æ°±·l:" + input + " "
-								+ abscurrent + "¤f");*/
+						cal.addEvent(getNowTime() + " ç©ºå–®?œæ?:" + input + " "
+								+ abscurrent + "??);*/
 						sval = 30;
 					}
-				} else if (input >= (price[abscurrent - 1] + svalT)) { // ªÅ¤è°±·l
+				} else if (input >= (price[abscurrent - 1] + svalT)) { // ç©ºæ–¹?œæ?
 					int wint = 0;
 					int lostt = 0;
 					int totalt = total;
@@ -1909,16 +1909,16 @@ public class NewDdeClient {
 						}
 						init();
 						txt.setOutput(getNowTime() + " SELLL80! cost:" + input
-								+ " " + abscurrent + "¤f");
+								+ " " + abscurrent + "??);
 						/*if (isGtalkOn)
-						g.alert(botname, Email, getNowTime() + " ªÅ³æ°±·l:" + input
-								+ " " + abscurrent + "¤f");
+						g.alert(botname, Email, getNowTime() + " ç©ºå–®?œæ?:" + input
+								+ " " + abscurrent + "??);
 						if (isFBOn)
-						f.alert(botname, getNowTime() + " ªÅ³æ°±·l:" + input
-								+ " " + abscurrent + "¤f");
+						f.alert(botname, getNowTime() + " ç©ºå–®?œæ?:" + input
+								+ " " + abscurrent + "??);
 						if (isCalOn)
-						cal.addEvent(getNowTime() + " ªÅ³æ°±·l:" + input + " "
-								+ abscurrent + "¤f");*/
+						cal.addEvent(getNowTime() + " ç©ºå–®?œæ?:" + input + " "
+								+ abscurrent + "??);*/
 						sval = 30;
 						runflag = false;
 					}
@@ -1942,7 +1942,7 @@ public class NewDdeClient {
 	}
 
 	void check_runtime() {
-		java.util.Date now = new java.util.Date(); // ¨ú±o²{¦b®É¶¡
+		java.util.Date now = new java.util.Date(); // ?–å??¾åœ¨?‚é?
 		SimpleDateFormat sf = new SimpleDateFormat("HH:mm:ss E",
 				java.util.Locale.TAIWAN);
 		String sGMT = sf.format(now);
@@ -1999,27 +1999,27 @@ public class NewDdeClient {
 						total = total + (inputt - price[i]);
 						txt.setOutput(getNowTime() + " BUYCW! cost:" + inputt);
 						/*if (isGtalkOn)
-						g.alert(botname, Email, getNowTime() + " ¦h³æ°±§Q:"
-								+ inputt + " " + abscurrent + "¤f");
+						g.alert(botname, Email, getNowTime() + " å¤šå–®?œåˆ©:"
+								+ inputt + " " + abscurrent + "??);
 						if (isFBOn)
-						f.alert(botname, getNowTime() + " ¦h³æ°±§Q:" + inputt
-								+ " " + abscurrent + "¤f");
+						f.alert(botname, getNowTime() + " å¤šå–®?œåˆ©:" + inputt
+								+ " " + abscurrent + "??);
 						if (isCalOn)
-						cal.addEvent(getNowTime() + " ¦h³æ°±§Q:" + inputt + " "
-								+ abscurrent + "¤f");*/
+						cal.addEvent(getNowTime() + " å¤šå–®?œåˆ©:" + inputt + " "
+								+ abscurrent + "??);*/
 					} else {
 						lost = lost + (price[i] - inputt);
 						total = total - (price[i] - inputt);
 						txt.setOutput(getNowTime() + " BUYCL! cost:" + inputt);
 						/*if (isGtalkOn)
-						g.alert(botname, Email, getNowTime() + " ¦h³æ°±·l:"
-								+ inputt + " " + abscurrent + "¤f");
+						g.alert(botname, Email, getNowTime() + " å¤šå–®?œæ?:"
+								+ inputt + " " + abscurrent + "??);
 						if (isFBOn)
-						f.alert(botname, getNowTime() + " ¦h³æ°±·l:" + inputt
-								+ " " + abscurrent + "¤f");
+						f.alert(botname, getNowTime() + " å¤šå–®?œæ?:" + inputt
+								+ " " + abscurrent + "??);
 						if (isCalOn)
-						cal.addEvent(getNowTime() + " ¦h³æ°±·l:" + inputt + " "
-								+ abscurrent + "¤f");*/
+						cal.addEvent(getNowTime() + " å¤šå–®?œæ?:" + inputt + " "
+								+ abscurrent + "??);*/
 					}
 				}
 				current = 0;
@@ -2033,27 +2033,27 @@ public class NewDdeClient {
 						total = total + (price[i] - inputt);
 						txt.setOutput(getNowTime() + " SELLCW! cost:" + inputt);
 						/*if (isGtalkOn)
-						g.alert(botname, Email, getNowTime() + " ªÅ³æ°±§Q:"
-								+ inputt + " " + abscurrent + "¤f");
+						g.alert(botname, Email, getNowTime() + " ç©ºå–®?œåˆ©:"
+								+ inputt + " " + abscurrent + "??);
 						if (isFBOn)
-						f.alert(botname, getNowTime() + " ªÅ³æ°±§Q:" + inputt
-								+ " " + abscurrent + "¤f");
+						f.alert(botname, getNowTime() + " ç©ºå–®?œåˆ©:" + inputt
+								+ " " + abscurrent + "??);
 						if (isCalOn)
-						cal.addEvent(getNowTime() + " ªÅ³æ°±§Q:" + inputt + " "
-								+ abscurrent + "¤f");*/
+						cal.addEvent(getNowTime() + " ç©ºå–®?œåˆ©:" + inputt + " "
+								+ abscurrent + "??);*/
 					} else {
 						lost = lost + (inputt - price[i]);
 						total = total - (inputt - price[i]);
 						txt.setOutput(getNowTime() + " SELLCL! cost:" + inputt);
 						/*if (isGtalkOn)
-						g.alert(botname, Email, getNowTime() + " ªÅ³æ°±·l:"
-								+ inputt + " " + abscurrent + "¤f");
+						g.alert(botname, Email, getNowTime() + " ç©ºå–®?œæ?:"
+								+ inputt + " " + abscurrent + "??);
 						if (isFBOn)
-						f.alert(botname, getNowTime() + " ªÅ³æ°±·l:" + inputt
-								+ " " + abscurrent + "¤f");
+						f.alert(botname, getNowTime() + " ç©ºå–®?œæ?:" + inputt
+								+ " " + abscurrent + "??);
 						if (isCalOn)
-						cal.addEvent(getNowTime() + " ªÅ³æ°±·l:" + inputt + " "
-								+ abscurrent + "¤f");*/
+						cal.addEvent(getNowTime() + " ç©ºå–®?œæ?:" + inputt + " "
+								+ abscurrent + "??);*/
 					}
 				}
 				current = 0;
@@ -2167,7 +2167,7 @@ public class NewDdeClient {
 	}
 	
 	private void setSGXTime(){
-		java.util.Date now = new java.util.Date(); // ¨ú±o²{¦b®É¶¡
+		java.util.Date now = new java.util.Date(); // ?–å??¾åœ¨?‚é?
 		SimpleDateFormat sf = new SimpleDateFormat("HH:mm:ss E",
 				java.util.Locale.TAIWAN);
 		SGXTime = sf.format(now);
