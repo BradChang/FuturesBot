@@ -303,15 +303,18 @@ public class NewDdeClient {
 	}
 
 	void doit(String input) {
+		//System.out.println(input);
 		String[] temp = input.split(",");
 		if (temp[0].equals("TX00")) {
 			int a = Integer.parseInt(temp[5]);
-			totalvol = Integer.parseInt(temp[7]);
+			totalvol = Integer.parseInt(temp[9]);
 			if (a != 0 && totalvol > 0) {
 				preSettle = Integer.parseInt(temp[10]);
-				high = Integer.parseInt(temp[8]);
-				low = Integer.parseInt(temp[9]);
-				vol = Integer.parseInt(temp[6]);
+				high = Integer.parseInt(temp[6]);
+				low = Integer.parseInt(temp[7]);
+				vol = Integer.parseInt(temp[8]);
+				//String msg = "(h,l,v)=" + high + ", " + low + ", " + vol;
+				//System.out.println(msg);
 				detect(a);
 				if (runflag) {
 					add(a);
