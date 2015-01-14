@@ -43,7 +43,7 @@ public class NewDdeClient {
 	int win = 0;
 	int lost = 0;
 	int total = 0;
-	int range = 16; // 變�?範�??
+	int range = 16; // 變動範圍值
 	// int flag = 0;
 	int high = 0;
 	int low = 0;
@@ -58,7 +58,7 @@ public class NewDdeClient {
 	private static String botname = "XXXXXX";
 	double HLpercent;
 	double nowpercent;
-	double percent = 0.0; // ?��?天�??��?估�
+	double percent = 0.0; // 前一天留倉評估值
 	int multiple = 2;
 	String version = "";
 	int inputt;
@@ -67,8 +67,8 @@ public class NewDdeClient {
 	int hlflag = 0;
 	int tsize = price.length;
 	int abscurrent = 0;
-	static String futuressignals = "小台??MXF,";
-	static final String futuressignal = "?��???TXF,";
+	static String futuressignals = "小台指,MXF,";
+	static final String futuressignal = "台指期,TXF,";
 	int tsize1 = 2;
 	int currentmulti = 1;
 	String YYMMDD;
@@ -159,7 +159,6 @@ public class NewDdeClient {
             //get the property value and print it out
     		if ("true".equals(prop.getProperty("USE_CAL"))) {
     			isCalOn = true;
-				System.out.println("USE_CAL");
     		}
     		if ("true".equals(prop.getProperty("USE_GTALK"))) {
     			isGtalkOn = true;
@@ -180,8 +179,8 @@ public class NewDdeClient {
 			// Clean up the file
 			fuindex = fu.getHistoryPro();
 			volpro = fu.getVolPro();
-			// System.out.println("上�?交�??�未平�? + opprice + "CALL "
-			// + Math.abs(current) + "??!");
+			// System.out.println("上一交易日未平倉" + opprice + "CALL "
+			// + Math.abs(current) + "口!!");
 
 			fis = new FileInputStream("C:\\Dropbox\\SGX.ser");
 			ois = new ObjectInputStream(fis);
@@ -219,11 +218,11 @@ public class NewDdeClient {
 			//ca_stock_account = (String) jsonObject.get("ca_stock_account");
 			
 			tradingsymbol = (String) jsonObject.get("symbol");
-			System.out.println("����N��: " + tradingsymbol);
+			System.out.println("交易代號: " + tradingsymbol);
 			long multi = (long)jsonObject.get("currentmulti");
-			System.out.println("�U�歿��: " + currentmulti);
+			System.out.println("下單倍數: " + currentmulti);
 			long pos = (long)jsonObject.get("position");
-			System.out.println("�ثe����: " + pos);
+			System.out.println("目前部位: " + pos);
 			currentmulti = (int) multi;
 			paperorder = (long)jsonObject.get("paperorder");
 			System.out.println("paperorder: " + paperorder);
@@ -303,7 +302,6 @@ public class NewDdeClient {
 	}
 
 	void doit(String input) {
-		//System.out.println(input);
 		String[] temp = input.split(",");
 		if (temp[0].equals("TX00")) {
 			int a = Integer.parseInt(temp[5]);
@@ -313,8 +311,6 @@ public class NewDdeClient {
 				high = Integer.parseInt(temp[6]);
 				low = Integer.parseInt(temp[7]);
 				vol = Integer.parseInt(temp[8]);
-				//String msg = "(h,l,v)=" + high + ", " + low + ", " + vol;
-				//System.out.println(msg);
 				detect(a);
 				if (runflag) {
 					add(a);
@@ -391,9 +387,9 @@ public class NewDdeClient {
 						ca_account, 
 						tradingsymbol, 
 						(short) 1,	//0:ROD 1:IOC 2:FOK
-						(short) 0,	//���R0:�_ 1:�O�A�i���R�ӫ~�аѦҥ���ҳW�w�C.
-						order>0?(short)0:(short)1,	//�R��O�A0:�R�i 1:��X
-								"M", 	//�e�U����A�uM�v���ܥ���
+						(short) 0,	//當沖0:否 1:是，可當沖商品請參考交易所規定。.
+						order>0?(short)0:(short)1,	//買賣別，0:買進 1:賣出
+								"M", 	//委託價格，「M」表示市價
 								Math.abs(order)
 						);
 			}
@@ -588,14 +584,14 @@ public class NewDdeClient {
 							// range += 2;
 							System.out.println(getNowTime() + " max1:" + input);
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + "max1 買�?"
-									+ input + " " + abscurrent + "??);
+							g.alert(botname, Email, getNowTime() + "max1 買進:"
+									+ input + " " + abscurrent + "口");
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " 買�?" + input
-									+ " " + abscurrent + "??);
+							f.alert(botname, getNowTime() + " 買進:" + input
+									+ " " + abscurrent + "口");
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " 買�?" + input + " "
-									+ abscurrent + "??);*/
+							cal.addEvent(getNowTime() + " 買進:" + input + " "
+									+ abscurrent + "口");*/
 							lowo = input;
 							higho = 0;
 							hlflag = 0;
@@ -621,14 +617,14 @@ public class NewDdeClient {
 							// range += 2;
 							System.out.println(getNowTime() + " min1:" + input);
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + "min1 �?��:"
-									+ input + " " + abscurrent + "??);
+							g.alert(botname, Email, getNowTime() + "min1 賣出:"
+									+ input + " " + abscurrent + "口");
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " �?��:" + input
-									+ " " + abscurrent + "??);
+							f.alert(botname, getNowTime() + " 賣出:" + input
+									+ " " + abscurrent + "口");
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " �?��:" + input + " "
-									+ abscurrent + "??);*/
+							cal.addEvent(getNowTime() + " 賣出:" + input + " "
+									+ abscurrent + "口");*/
 							higho = input;
 							lowo = 0;
 							hlflag = 0;
@@ -654,14 +650,14 @@ public class NewDdeClient {
 							// range += 2;
 							System.out.println(getNowTime() + " max2:" + input);
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + "max2 買�?"
-									+ input + " " + abscurrent + "??);
+							g.alert(botname, Email, getNowTime() + "max2 買進:"
+									+ input + " " + abscurrent + "口");
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " 買�?" + input
-									+ " " + abscurrent + "??);
+							f.alert(botname, getNowTime() + " 買進:" + input
+									+ " " + abscurrent + "口");
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " 買�?" + input + " "
-									+ abscurrent + "??);*/
+							cal.addEvent(getNowTime() + " 買進:" + input + " "
+									+ abscurrent + "口");*/
 							lowo = input;
 							higho = 0;
 							hlflag = 0;
@@ -687,14 +683,14 @@ public class NewDdeClient {
 							// range += 2;
 							System.out.println(getNowTime() + " min2:" + input);
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + "min2 �?��:"
-									+ input + " " + abscurrent + "??);
+							g.alert(botname, Email, getNowTime() + "min2 賣出:"
+									+ input + " " + abscurrent + "口");
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " �?��:" + input
-									+ " " + abscurrent + "??);
+							f.alert(botname, getNowTime() + " 賣出:" + input
+									+ " " + abscurrent + "口");
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " �?��:" + input + " "
-									+ abscurrent + "??);*/
+							cal.addEvent(getNowTime() + " 賣出:" + input + " "
+									+ abscurrent + "口");*/
 							higho = input;
 							lowo = 0;
 							hlflag = 0;
@@ -738,17 +734,17 @@ public class NewDdeClient {
 										+ text + "b:" + input);
 								/*if (isGtalkOn)
 								g.alert(botname, Email, getNowTime()
-										+ text + "b 買�?" + input + " "
-										+ abscurrent + "?? + " 次數:"
+										+ text + "b 買進:" + input + " "
+										+ abscurrent + "口" + " 次數:"
 										+ counterPos + " " +SGXTWGap());
 								if (isFBOn)
 								f.alert(botname, getNowTime()
-										+ " 買�?" + input + " "
-										+ abscurrent + "??);
+										+ " 買進:" + input + " "
+										+ abscurrent + "口");
 								if (isCalOn)
-								cal.addEvent(getNowTime() + " 買�?"
+								cal.addEvent(getNowTime() + " 買進:"
 										+ input + " " + abscurrent
-										+ "??);*/
+										+ "口");*/
 								lowo = input;
 								higho = 0;
 								hlflag = 0;
@@ -784,17 +780,17 @@ public class NewDdeClient {
 										+ text + "s:" + input);
 								/*if (isGtalkOn)
 								g.alert(botname, Email, getNowTime()
-										+ text + "s �?��:" + input + " "
-										+ abscurrent + "?? + " 次數:"
+										+ text + "s 賣出:" + input + " "
+										+ abscurrent + "口" + " 次數:"
 										+ counterPos + " " +SGXTWGap());
 								if (isFBOn)
 								f.alert(botname, getNowTime()
-										+ " �?��:" + input + " "
-										+ abscurrent + "??);
+										+ " 賣出:" + input + " "
+										+ abscurrent + "口");
 								if (isCalOn)
-								cal.addEvent(getNowTime() + " �?��:"
+								cal.addEvent(getNowTime() + " 賣出:"
 										+ input + " " + abscurrent
-										+ "??);*/
+										+ "口");*/
 								higho = input;
 								lowo = 0;
 								hlflag = 0;
@@ -833,15 +829,15 @@ public class NewDdeClient {
 							price[i] = input;
 						System.out.println(getNowTime() + "LOWM BUY:" + input);
 						/*if (isGtalkOn)
-						g.alert(botname, Email, getNowTime() + " LOWM多單買�?"
-								+ input + " " + abscurrent + "?? + " 次數:"
+						g.alert(botname, Email, getNowTime() + " LOWM多單買進:"
+								+ input + " " + abscurrent + "口" + " 次數:"
 								+ lowmcountB);
 						if (isFBOn)
-						f.alert(botname, getNowTime() + " 買�?" + input
-								+ " " + abscurrent + "??);
+						f.alert(botname, getNowTime() + " 買進:" + input
+								+ " " + abscurrent + "口");
 						if (isCalOn)
-						cal.addEvent(getNowTime() + " 買�?" + input + " "
-								+ abscurrent + "??);*/
+						cal.addEvent(getNowTime() + " 買進:" + input + " "
+								+ abscurrent + "口");*/
 						hlflag = 0;
 						lowmcountB = 0;
 						lowmcount = 0;
@@ -888,15 +884,15 @@ public class NewDdeClient {
 							price[i] = input;
 						System.out.println(getNowTime() + "LOWM SELL" + input);
 						/*if (isGtalkOn)
-						g.alert(botname, Email, getNowTime() + " LOWM空單�?��:"
-								+ input + " " + abscurrent + "?? + " 次數:"
+						g.alert(botname, Email, getNowTime() + " LOWM空單賣出:"
+								+ input + " " + abscurrent + "口" + " 次數:"
 								+ lowmcountS);
 						if (isFBOn)
-						f.alert(botname, getNowTime() + " �?��:" + input
-								+ " " + abscurrent + "??);
+						f.alert(botname, getNowTime() + " 賣出:" + input
+								+ " " + abscurrent + "口");
 						if (isCalOn)
-						cal.addEvent(getNowTime() + " �?��:" + input + " "
-								+ abscurrent + "??);*/
+						cal.addEvent(getNowTime() + " 賣出:" + input + " "
+								+ abscurrent + "口");*/
 						hlflag = 0;
 						lowmcountS = 0;
 						lowmcount = 0;
@@ -953,8 +949,8 @@ public class NewDdeClient {
 		if (current > 0) {
 			if ((SGXTWGap() - SGXGap) <= 0) {
 				if (getHighLowPro(true) > lowoutgap) {
-					if ((input <= (higho - GapvoloutL)) && hlflag == 1) { // ?�斷?�否高�??��?
-						// 多方?�利
+					if ((input <= (higho - GapvoloutL)) && hlflag == 1) { // 判斷是否高點回檔
+						// 多方停利
 						for (int i = 0; i < abscurrent; i++) {
 							if (input > price[i]) {
 								win = win + (input - price[i]);
@@ -963,14 +959,14 @@ public class NewDdeClient {
 										+ input);
 								/*if (isGtalkOn)
 								g.alert(botname, Email, getNowTime()
-										+ " LOWW1多單?�利:" + input + " "
-										+ abscurrent + "??);
+										+ " LOWW1多單停利:" + input + " "
+										+ abscurrent + "口");
 								if (isFBOn)
-								f.alert(botname, getNowTime() + " 多單?�利:"
-										+ input + " " + abscurrent + "??);
+								f.alert(botname, getNowTime() + " 多單停利:"
+										+ input + " " + abscurrent + "口");
 								if (isCalOn)
-								cal.addEvent(getNowTime() + " 多單?�利:" + input
-										+ " " + abscurrent + "??);*/
+								cal.addEvent(getNowTime() + " 多單停利:" + input
+										+ " " + abscurrent + "口");*/
 							} else {
 								lost = lost + (price[i] - input);
 								total = total - (price[i] - input);
@@ -978,14 +974,14 @@ public class NewDdeClient {
 										+ input);
 								/*if (isGtalkOn)
 								g.alert(botname, Email, getNowTime()
-										+ " LOWL1多單?��?:" + input + " "
-										+ abscurrent + "??);
+										+ " LOWL1多單停損:" + input + " "
+										+ abscurrent + "口");
 								if (isFBOn)
-								f.alert(botname, getNowTime() + " 多單?��?:"
-										+ input + " " + abscurrent + "??);
+								f.alert(botname, getNowTime() + " 多單停損:"
+										+ input + " " + abscurrent + "口");
 								if (isCalOn)
-								cal.addEvent(getNowTime() + " 多單?��?:" + input
-										+ " " + abscurrent + "??);*/
+								cal.addEvent(getNowTime() + " 多單停損:" + input
+										+ " " + abscurrent + "口");*/
 							}
 						}
 						init();
@@ -1006,15 +1002,15 @@ public class NewDdeClient {
 											+ "BUYLOWMW2! cost:" + input);
 									/*if (isGtalkOn)
 									g.alert(botname, Email, getNowTime()
-											+ " LOWW2多單?�利:" + input + " "
-											+ abscurrent + "??);
+											+ " LOWW2多單停利:" + input + " "
+											+ abscurrent + "口");
 									if (isFBOn)
 									f.alert(botname, getNowTime()
-											+ " 多單?�利:" + input + " "
-											+ abscurrent + "??);
+											+ " 多單停利:" + input + " "
+											+ abscurrent + "口");
 									if (isCalOn)
-									cal.addEvent(getNowTime() + " 多單?�利:" + input
-											+ " " + abscurrent + "??);*/
+									cal.addEvent(getNowTime() + " 多單停利:" + input
+											+ " " + abscurrent + "口");*/
 								} else {
 									lost = lost + (price[i] - input);
 									total = total - (price[i] - input);
@@ -1022,15 +1018,15 @@ public class NewDdeClient {
 											+ "BUYLOWML2! cost:" + input);
 									/*if (isGtalkOn)
 									g.alert(botname, Email, getNowTime()
-											+ " LOWL2多單?��?:" + input + " "
-											+ abscurrent + "??);
+											+ " LOWL2多單停損:" + input + " "
+											+ abscurrent + "口");
 									if (isFBOn)
 									f.alert(botname, getNowTime()
-											+ " 多單?��?:" + input + " "
-											+ abscurrent + "??);
+											+ " 多單停損:" + input + " "
+											+ abscurrent + "口");
 									if (isCalOn)
-									cal.addEvent(getNowTime() + " 多單?��?:" + input
-											+ " " + abscurrent + "??);*/
+									cal.addEvent(getNowTime() + " 多單停損:" + input
+											+ " " + abscurrent + "口");*/
 								}
 							}
 							init();
@@ -1044,8 +1040,8 @@ public class NewDdeClient {
 		} else if (current < 0) {
 			if ((SGXTWGap() + SGXGap) >= 0) {
 				if (getHighLowPro(false) > lowoutgap) {
-					if ((input >= (lowo + GapvoloutL)) && hlflag == -1) { // ?�斷?�否低�??��?
-						// 空方?��?
+					if ((input >= (lowo + GapvoloutL)) && hlflag == -1) { // 判斷是否低點回檔
+						// 空方停損
 						for (int i = 0; i < abscurrent; i++) {
 							if (input < price[i]) {
 								win = win + (price[i] - input);
@@ -1054,14 +1050,14 @@ public class NewDdeClient {
 										+ input);
 								/*if (isGtalkOn)
 								g.alert(botname, Email, getNowTime()
-										+ " LOWW1空單?�利:" + input + " "
-										+ abscurrent + "??);
+										+ " LOWW1空單停利:" + input + " "
+										+ abscurrent + "口");
 								if (isFBOn)
-								f.alert(botname, getNowTime() + " 空單?�利:"
-										+ input + " " + abscurrent + "??);
+								f.alert(botname, getNowTime() + " 空單停利:"
+										+ input + " " + abscurrent + "口");
 								if (isCalOn)
-								cal.addEvent(getNowTime() + " 空單?�利:" + input
-										+ " " + abscurrent + "??);*/
+								cal.addEvent(getNowTime() + " 空單停利:" + input
+										+ " " + abscurrent + "口");*/
 							} else {
 								lost = lost + (input - price[i]);
 								total = total - (input - price[i]);
@@ -1069,14 +1065,14 @@ public class NewDdeClient {
 										+ input);
 								/*if (isGtalkOn)
 								g.alert(botname, Email, getNowTime()
-										+ " LOWL1空單?��?:" + input + " "
-										+ abscurrent + "??);
+										+ " LOWL1空單停損:" + input + " "
+										+ abscurrent + "口");
 								if (isFBOn)
-								f.alert(botname, getNowTime() + " 空單?��?:"
-										+ input + " " + abscurrent + "??);
+								f.alert(botname, getNowTime() + " 空單停損:"
+										+ input + " " + abscurrent + "口");
 								if (isCalOn)
-								cal.addEvent(getNowTime() + " 空單?��?:" + input
-										+ " " + abscurrent + "??);*/
+								cal.addEvent(getNowTime() + " 空單停損:" + input
+										+ " " + abscurrent + "口");*/
 							}
 						}
 						init();
@@ -1097,15 +1093,15 @@ public class NewDdeClient {
 											+ " SELLCW2! cost:" + input);
 									/*if (isGtalkOn)
 									g.alert(botname, Email, getNowTime()
-											+ " LOWW2空單?�利:" + input + " "
-											+ abscurrent + "??);
+											+ " LOWW2空單停利:" + input + " "
+											+ abscurrent + "口");
 									if (isFBOn)
 									f.alert(botname, getNowTime()
-											+ " 空單?�利:" + input + " "
-											+ abscurrent + "??);
+											+ " 空單停利:" + input + " "
+											+ abscurrent + "口");
 									if (isCalOn)
-									cal.addEvent(getNowTime() + " 空單?�利:" + input
-											+ " " + abscurrent + "??);*/
+									cal.addEvent(getNowTime() + " 空單停利:" + input
+											+ " " + abscurrent + "口");*/
 								} else {
 									lost = lost + (input - price[i]);
 									total = total - (input - price[i]);
@@ -1113,15 +1109,15 @@ public class NewDdeClient {
 											+ " SELLCL2! cost:" + input);
 									/*if (isGtalkOn)
 									g.alert(botname, Email, getNowTime()
-											+ " LOWL2空單?��?:" + input + " "
-											+ abscurrent + "??);
+											+ " LOWL2空單停損:" + input + " "
+											+ abscurrent + "口");
 									if (isFBOn)
 									f.alert(botname, getNowTime()
-											+ " 空單?��?:" + input + " "
-											+ abscurrent + "??);
+											+ " 空單停損:" + input + " "
+											+ abscurrent + "口");
 									if (isCalOn)
-									cal.addEvent(getNowTime() + " 空單?��?:" + input
-											+ " " + abscurrent + "??);*/
+									cal.addEvent(getNowTime() + " 空單停損:" + input
+											+ " " + abscurrent + "口");*/
 								}
 							}
 							init();
@@ -1139,9 +1135,9 @@ public class NewDdeClient {
 		if (current > 0) {
 			if ((SGXTWGap() - SGXGap) <= 0) {
 				if (getHighLowPro(true) > highoutgap) {
-					if ((input <= (higho - GapvoloutH)) && hlflag == 1) { // ?�斷?�否高�??��?
+					if ((input <= (higho - GapvoloutH)) && hlflag == 1) { // 判斷是否高點回檔
 						if (input > (price[abscurrent - 1] + sval)) {
-							// 多方?�利
+							// 多方停利
 							for (int i = 0; i < abscurrent; i++) {
 								if (input > price[i]) {
 									win = win + (input - price[i]);
@@ -1150,15 +1146,15 @@ public class NewDdeClient {
 											+ " BUYHIGHMW1! cost:" + input);
 									/*if (isGtalkOn)
 									g.alert(botname, Email, getNowTime()
-											+ " HIGHM1多單?�利:" + input + " "
-											+ abscurrent + "??);
+											+ " HIGHM1多單停利:" + input + " "
+											+ abscurrent + "口");
 									if (isFBOn)
 									f.alert(botname, getNowTime()
-											+ " 多單?�利:" + input + " "
-											+ abscurrent + "??);
+											+ " 多單停利:" + input + " "
+											+ abscurrent + "口");
 									if (isCalOn)
-									cal.addEvent(getNowTime() + " 多單?�利:" + input
-											+ " " + abscurrent + "??);*/
+									cal.addEvent(getNowTime() + " 多單停利:" + input
+											+ " " + abscurrent + "口");*/
 								} else {
 									lost = lost + (price[i] - input);
 									total = total - (price[i] - input);
@@ -1166,15 +1162,15 @@ public class NewDdeClient {
 											+ " BUYHIGHML1! cost:" + input);
 									/*if (isGtalkOn)
 									g.alert(botname, Email, getNowTime()
-											+ " HIGHL1多單?��?:" + input + " "
-											+ abscurrent + "??);
+											+ " HIGHL1多單停損:" + input + " "
+											+ abscurrent + "口");
 									if (isFBOn)
 									f.alert(botname, getNowTime()
-											+ " 多單?��?:" + input + " "
-											+ abscurrent + "??);
+											+ " 多單停損:" + input + " "
+											+ abscurrent + "口");
 									if (isCalOn)
-									cal.addEvent(getNowTime() + " 多單?�利:" + input
-											+ " " + abscurrent + "??);*/
+									cal.addEvent(getNowTime() + " 多單停利:" + input
+											+ " " + abscurrent + "口");*/
 								}
 							}
 							init();
@@ -1186,7 +1182,7 @@ public class NewDdeClient {
 				} else {
 					if ((SGXTWGap() + 0.0012) < 0) {
 						if (input > (price[abscurrent - 1] + sval)) {
-							// 多方?�利
+							// 多方停利
 							for (int i = 0; i < abscurrent; i++) {
 								if (input > price[i]) {
 									win = win + (input - price[i]);
@@ -1195,15 +1191,15 @@ public class NewDdeClient {
 											+ " BUYHIGHMW2! cost:" + input);
 									/*if (isGtalkOn)
 									g.alert(botname, Email, getNowTime()
-											+ " HIGHM2多單?�利:" + input + " "
-											+ abscurrent + "??);
+											+ " HIGHM2多單停利:" + input + " "
+											+ abscurrent + "口");
 									if (isFBOn)
 									f.alert(botname, getNowTime()
-											+ " 多單?�利:" + input + " "
-											+ abscurrent + "??);
+											+ " 多單停利:" + input + " "
+											+ abscurrent + "口");
 									if (isCalOn)
-									cal.addEvent(getNowTime() + " 多單?�利:" + input
-											+ " " + abscurrent + "??);*/
+									cal.addEvent(getNowTime() + " 多單停利:" + input
+											+ " " + abscurrent + "口");*/
 								} else {
 									lost = lost + (price[i] - input);
 									total = total - (price[i] - input);
@@ -1211,15 +1207,15 @@ public class NewDdeClient {
 											+ " BUYHIGHML2! cost:" + input);
 									/*if (isGtalkOn)
 									g.alert(botname, Email, getNowTime()
-											+ " HIGHL2多單?��?:" + input + " "
-											+ abscurrent + "??);
+											+ " HIGHL2多單停損:" + input + " "
+											+ abscurrent + "口");
 									if (isFBOn)
 									f.alert(botname, getNowTime()
-											+ " 多單?��?:" + input + " "
-											+ abscurrent + "??);
+											+ " 多單停損:" + input + " "
+											+ abscurrent + "口");
 									if (isCalOn)
-									cal.addEvent(getNowTime() + " 多單?�利:" + input
-											+ " " + abscurrent + "??);*/
+									cal.addEvent(getNowTime() + " 多單停利:" + input
+											+ " " + abscurrent + "口");*/
 								}
 							}
 							init();
@@ -1233,9 +1229,9 @@ public class NewDdeClient {
 		} else if (current < 0) {
 			if ((SGXTWGap() + SGXGap) >= 0) {
 				if (getHighLowPro(false) > highoutgap) {
-					if ((input >= (lowo + GapvoloutH)) && hlflag == -1) { // ?�斷?�否低�??��?
+					if ((input >= (lowo + GapvoloutH)) && hlflag == -1) { // 判斷是否低點回檔
 						if (input < (price[abscurrent - 1] - sval)) {
-							// 空方?��?
+							// 空方停損
 							for (int i = 0; i < abscurrent; i++) {
 								if (input < price[i]) {
 									win = win + (price[i] - input);
@@ -1244,15 +1240,15 @@ public class NewDdeClient {
 											+ " SELLHIGHW1! cost:" + input);
 									/*if (isGtalkOn)
 									g.alert(botname, Email, getNowTime()
-											+ " HIGHM1空單?�利:" + input + " "
-											+ abscurrent + "??);
+											+ " HIGHM1空單停利:" + input + " "
+											+ abscurrent + "口");
 									if (isFBOn)
 									f.alert(botname, getNowTime()
-											+ " 空單?�利:" + input + " "
-											+ abscurrent + "??);
+											+ " 空單停利:" + input + " "
+											+ abscurrent + "口");
 									if (isCalOn)
-									cal.addEvent(getNowTime() + " 空單?�利:" + input
-											+ " " + abscurrent + "??);*/
+									cal.addEvent(getNowTime() + " 空單停利:" + input
+											+ " " + abscurrent + "口");*/
 								} else {
 									lost = lost + (input - price[i]);
 									total = total - (input - price[i]);
@@ -1260,15 +1256,15 @@ public class NewDdeClient {
 											+ " SELLHIGHL1! cost:" + input);
 									/*if (isGtalkOn)
 									g.alert(botname, Email, getNowTime()
-											+ " HIGHL1空單?��?:" + input + " "
-											+ abscurrent + "??);
+											+ " HIGHL1空單停損:" + input + " "
+											+ abscurrent + "口");
 									if (isFBOn)
 									f.alert(botname, getNowTime()
-											+ " 空單?��?:" + input + " "
-											+ abscurrent + "??);
+											+ " 空單停損:" + input + " "
+											+ abscurrent + "口");
 									if (isCalOn)
-									cal.addEvent(getNowTime() + " 空單?��?:" + input
-											+ " " + abscurrent + "??);*/
+									cal.addEvent(getNowTime() + " 空單停損:" + input
+											+ " " + abscurrent + "口");*/
 								}
 							}
 							init();
@@ -1280,7 +1276,7 @@ public class NewDdeClient {
 				} else {
 					if ((SGXTWGap() - 0.0012) > 0) {
 						if (input < (price[abscurrent - 1] - sval)) {
-							// 空方?��?
+							// 空方停損
 							for (int i = 0; i < abscurrent; i++) {
 								if (input < price[i]) {
 									win = win + (price[i] - input);
@@ -1289,15 +1285,15 @@ public class NewDdeClient {
 											+ " SELLHIGHW2! cost:" + input);
 									/*if (isGtalkOn)
 									g.alert(botname, Email, getNowTime()
-											+ " HIGHM2空單?�利:" + input + " "
-											+ abscurrent + "??);
+											+ " HIGHM2空單停利:" + input + " "
+											+ abscurrent + "口");
 									if (isFBOn)
 									f.alert(botname, getNowTime()
-											+ " 空單?�利:" + input + " "
-											+ abscurrent + "??);
+											+ " 空單停利:" + input + " "
+											+ abscurrent + "口");
 									if (isCalOn)
-									cal.addEvent(getNowTime() + " 空單?�利:" + input
-											+ " " + abscurrent + "??);*/
+									cal.addEvent(getNowTime() + " 空單停利:" + input
+											+ " " + abscurrent + "口");*/
 								} else {
 									lost = lost + (input - price[i]);
 									total = total - (input - price[i]);
@@ -1305,15 +1301,15 @@ public class NewDdeClient {
 											+ " SELLHIGHL2! cost:" + input);
 									/*if (isGtalkOn)
 									g.alert(botname, Email, getNowTime()
-											+ " HIGHL2空單?��?:" + input + " "
-											+ abscurrent + "??);
+											+ " HIGHL2空單停損:" + input + " "
+											+ abscurrent + "口");
 									if (isFBOn)
 									f.alert(botname, getNowTime()
-											+ " 空單?��?:" + input + " "
-											+ abscurrent + "??);
+											+ " 空單停損:" + input + " "
+											+ abscurrent + "口");
 									if (isCalOn)
-									cal.addEvent(getNowTime() + " 空單?��?:" + input
-											+ " " + abscurrent + "??);*/
+									cal.addEvent(getNowTime() + " 空單停損:" + input
+											+ " " + abscurrent + "口");*/
 								}
 							}
 							init();
@@ -1329,8 +1325,8 @@ public class NewDdeClient {
 
 	private void checkout1(int input, boolean up) {
 		if (current > 0) {
-			if ((input <= (higho - GapvoloutH)) && hlflag == 1 && (SGXTWGap() - SGXGap56) < 0) { // ?�斷?�否高�??��?
-				if (input <= price[0]) { // 多方?��?
+			if ((input <= (higho - GapvoloutH)) && hlflag == 1 && (SGXTWGap() - SGXGap56) < 0) { // 判斷是否高點回檔
+				if (input <= price[0]) { // 多方停損
 					current = 0;
 					writetxt(input);
 					for (int i = 0; i < abscurrent; i++) {
@@ -1339,16 +1335,16 @@ public class NewDdeClient {
 					}
 					init();
 					txt.setOutput(getNowTime() + " BUY1L! cost:" + input + " "
-							+ abscurrent + "??);
+							+ abscurrent + "口");
 					/*if (isGtalkOn)
-					g.alert(botname, Email, getNowTime() + " 多單?��?:" + input
-							+ " " + abscurrent + "??);
+					g.alert(botname, Email, getNowTime() + " 多單停損:" + input
+							+ " " + abscurrent + "口");
 					if (isFBOn)
-					f.alert(botname, getNowTime() + " 多單?��?:" + input + " "
-							+ abscurrent + "??);
+					f.alert(botname, getNowTime() + " 多單停損:" + input + " "
+							+ abscurrent + "口");
 					if (isCalOn)
-					cal.addEvent(getNowTime() + " 多單?��?:" + input + " "
-							+ abscurrent + "??);*/
+					cal.addEvent(getNowTime() + " 多單停損:" + input + " "
+							+ abscurrent + "口");*/
 				} else {
 					current = 0;
 					writetxt(input);
@@ -1358,21 +1354,21 @@ public class NewDdeClient {
 					}
 					init();
 					txt.setOutput(getNowTime() + " BUY1W! cost:" + input + " "
-							+ abscurrent + "??);
+							+ abscurrent + "口");
 					/*if (isGtalkOn)
-					g.alert(botname, Email, getNowTime() + " 多單?�利:" + input
-							+ " " + abscurrent + "??);
+					g.alert(botname, Email, getNowTime() + " 多單停利:" + input
+							+ " " + abscurrent + "口");
 					if (isFBOn)
-					f.alert(botname, getNowTime() + " 多單?�利:" + input + " "
-							+ abscurrent + "??);
+					f.alert(botname, getNowTime() + " 多單停利:" + input + " "
+							+ abscurrent + "口");
 					if (isCalOn)
-					cal.addEvent(getNowTime() + " 多單?�利:" + input + " "
-							+ abscurrent + "??);*/
+					cal.addEvent(getNowTime() + " 多單停利:" + input + " "
+							+ abscurrent + "口");*/
 				}
 			} else {
 				if (!up) {
 					if (!((SGXTWGap() - 0.0012) > 0)) {
-						if (input <= price[0]) { // 多方?��?
+						if (input <= price[0]) { // 多方停損
 							current = 0;
 							writetxt(input);
 							for (int i = 0; i < abscurrent; i++) {
@@ -1381,16 +1377,16 @@ public class NewDdeClient {
 							}
 							init();
 							txt.setOutput(getNowTime() + " BUYL! cost:" + input
-									+ " " + abscurrent + "??);
+									+ " " + abscurrent + "口");
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + " 多單?��?:"
-									+ input + " " + abscurrent + "??);
+							g.alert(botname, Email, getNowTime() + " 多單停損:"
+									+ input + " " + abscurrent + "口");
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " 多單?��?:"
-									+ input + " " + abscurrent + "??);
+							f.alert(botname, getNowTime() + " 多單停損:"
+									+ input + " " + abscurrent + "口");
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " 多單?��?:" + input + " "
-									+ abscurrent + "??);*/
+							cal.addEvent(getNowTime() + " 多單停損:" + input + " "
+									+ abscurrent + "口");*/
 						} else {
 							current = 0;
 							writetxt(input);
@@ -1400,16 +1396,16 @@ public class NewDdeClient {
 							}
 							init();
 							txt.setOutput(getNowTime() + " BUYW! cost:" + input
-									+ " " + abscurrent + "??);
+									+ " " + abscurrent + "口");
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + " 多單?�利:"
-									+ input + " " + abscurrent + "??);
+							g.alert(botname, Email, getNowTime() + " 多單停利:"
+									+ input + " " + abscurrent + "口");
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " 多單?�利:"
-									+ input + " " + abscurrent + "??);
+							f.alert(botname, getNowTime() + " 多單停利:"
+									+ input + " " + abscurrent + "口");
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " 多單?�利:" + input + " "
-									+ abscurrent + "??);*/
+							cal.addEvent(getNowTime() + " 多單停利:" + input + " "
+									+ abscurrent + "口");*/
 						}
 					}
 				} else {
@@ -1423,25 +1419,25 @@ public class NewDdeClient {
 							abscurrent = Math.abs(current);
 							writetxt(0);
 							txt.setOutput(getNowTime() + " max3:" + input + " "
-									+ abscurrent + "??);
+									+ abscurrent + "口");
 							// range += 2;
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + " 多單?�碼:"
-									+ input + " " + abscurrent + "??);
+							g.alert(botname, Email, getNowTime() + " 多單加碼:"
+									+ input + " " + abscurrent + "口");
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " 多單?�碼:"
-									+ input + " " + abscurrent + "??);
+							f.alert(botname, getNowTime() + " 多單加碼:"
+									+ input + " " + abscurrent + "口");
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " 多單?�碼:" + input + " "
-									+ abscurrent + "??);*/
+							cal.addEvent(getNowTime() + " 多單加碼:" + input + " "
+									+ abscurrent + "口");*/
 							hlflag = 0;
 						}
 					}
 				}
 			}
 		} else if (current < 0) {
-			if ((input >= (lowo + GapvoloutH)) && hlflag == -1 && (SGXTWGap() + SGXGap56) > 0) { // ?�斷?�否低�??��?
-				if (input >= price[0]) { // 空方?��?
+			if ((input >= (lowo + GapvoloutH)) && hlflag == -1 && (SGXTWGap() + SGXGap56) > 0) { // 判斷是否低點回檔
+				if (input >= price[0]) { // 空方停損
 					current = 0;
 					writetxt(input);
 					for (int i = 0; i < abscurrent; i++) {
@@ -1450,16 +1446,16 @@ public class NewDdeClient {
 					}
 					init();
 					txt.setOutput(getNowTime() + " SELL1L! cost:" + input + " "
-							+ abscurrent + "??);
+							+ abscurrent + "口");
 					/*if (isGtalkOn)
-					g.alert(botname, Email, getNowTime() + " 空單?��?:" + input
-							+ " " + abscurrent + "??);
+					g.alert(botname, Email, getNowTime() + " 空單停損:" + input
+							+ " " + abscurrent + "口");
 					if (isFBOn)
-					f.alert(botname, getNowTime() + " 空單?��?:" + input + " "
-							+ abscurrent + "??);
+					f.alert(botname, getNowTime() + " 空單停損:" + input + " "
+							+ abscurrent + "口");
 					if (isCalOn)
-					cal.addEvent(getNowTime() + " 空單?��?:" + input + " "
-							+ abscurrent + "??);*/
+					cal.addEvent(getNowTime() + " 空單停損:" + input + " "
+							+ abscurrent + "口");*/
 				} else {
 					current = 0;
 					writetxt(input);
@@ -1469,21 +1465,21 @@ public class NewDdeClient {
 					}
 					init();
 					txt.setOutput(getNowTime() + " SELL1! cost:" + input + " "
-							+ abscurrent + "??);
+							+ abscurrent + "口");
 					/*if (isGtalkOn)
-					g.alert(botname, Email, getNowTime() + " 空單?�利:" + input
-							+ " " + abscurrent + "??);
+					g.alert(botname, Email, getNowTime() + " 空單停利:" + input
+							+ " " + abscurrent + "口");
 					if (isFBOn)
-					f.alert(botname, getNowTime() + " 空單?�利:" + input + " "
-							+ abscurrent + "??);
+					f.alert(botname, getNowTime() + " 空單停利:" + input + " "
+							+ abscurrent + "口");
 					if (isCalOn)
-					cal.addEvent(getNowTime() + " 空單?�利:" + input + " "
-							+ abscurrent + "??);*/
+					cal.addEvent(getNowTime() + " 空單停利:" + input + " "
+							+ abscurrent + "口");*/
 				}
 			} else {
 				if (up) {
 					if (!((SGXTWGap() + 0.0012) < 0)) {
-						if (input >= price[0]) { // 空方?��?
+						if (input >= price[0]) { // 空方停損
 							current = 0;
 							writetxt(input);
 							for (int i = 0; i < abscurrent; i++) {
@@ -1492,16 +1488,16 @@ public class NewDdeClient {
 							}
 							init();
 							txt.setOutput(getNowTime() + " SELLL! cost:"
-									+ input + " " + abscurrent + "??);
+									+ input + " " + abscurrent + "口");
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + " 空單?��?:"
-									+ input + " " + abscurrent + "??);
+							g.alert(botname, Email, getNowTime() + " 空單停損:"
+									+ input + " " + abscurrent + "口");
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " 空單?��?:"
-									+ input + " " + abscurrent + "??);
+							f.alert(botname, getNowTime() + " 空單停損:"
+									+ input + " " + abscurrent + "口");
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " 空單?��?:" + input + " "
-									+ abscurrent + "??);*/
+							cal.addEvent(getNowTime() + " 空單停損:" + input + " "
+									+ abscurrent + "口");*/
 						} else {
 							current = 0;
 							writetxt(input);
@@ -1511,16 +1507,16 @@ public class NewDdeClient {
 							}
 							init();
 							txt.setOutput(getNowTime() + " SELLW! cost:"
-									+ input + " " + abscurrent + "??);
+									+ input + " " + abscurrent + "口");
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + " 空單?�利:"
-									+ input + " " + abscurrent + "??);
+							g.alert(botname, Email, getNowTime() + " 空單停利:"
+									+ input + " " + abscurrent + "口");
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " 空單?�利:"
-									+ input + " " + abscurrent + "??);
+							f.alert(botname, getNowTime() + " 空單停利:"
+									+ input + " " + abscurrent + "口");
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " 空單?�利:" + input + " "
-									+ abscurrent + "??);*/
+							cal.addEvent(getNowTime() + " 空單停利:" + input + " "
+									+ abscurrent + "口");*/
 						}
 					}
 				} else {
@@ -1534,17 +1530,17 @@ public class NewDdeClient {
 							abscurrent = Math.abs(current);
 							writetxt(0);
 							txt.setOutput(getNowTime() + " min3:" + input + " "
-									+ abscurrent + "??);
+									+ abscurrent + "口");
 							// range += 2;
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + " 空單?�碼:"
-									+ input + " " + abscurrent + "??);
+							g.alert(botname, Email, getNowTime() + " 空單加碼:"
+									+ input + " " + abscurrent + "口");
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " 空單?�碼:"
-									+ input + " " + abscurrent + "??);
+							f.alert(botname, getNowTime() + " 空單加碼:"
+									+ input + " " + abscurrent + "口");
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " 空單?�碼:" + input + " "
-									+ abscurrent + "??);*/
+							cal.addEvent(getNowTime() + " 空單加碼:" + input + " "
+									+ abscurrent + "口");*/
 							hlflag = 0;
 						}
 					}
@@ -1555,8 +1551,8 @@ public class NewDdeClient {
 	
 	private void checkout2(int input, boolean up) {
 		if (current > 0) {
-			if ((input <= (higho - GapvoloutH)) && hlflag == 1 && (SGXTWGap() - SGXGap56) < 0) { // ?�斷?�否高�??��?
-				if (input <= price[0]) { // 多方?��?
+			if ((input <= (higho - GapvoloutH)) && hlflag == 1 && (SGXTWGap() - SGXGap56) < 0) { // 判斷是否高點回檔
+				if (input <= price[0]) { // 多方停損
 					current = 0;
 					writetxt(input);
 					for (int i = 0; i < abscurrent; i++) {
@@ -1565,16 +1561,16 @@ public class NewDdeClient {
 					}
 					init();
 					txt.setOutput(getNowTime() + " BUY1L! cost:" + input + " "
-							+ abscurrent + "??);
+							+ abscurrent + "口");
 					/*if (isGtalkOn)
-					g.alert(botname, Email, getNowTime() + " 多單?��?:" + input
-							+ " " + abscurrent + "??);
+					g.alert(botname, Email, getNowTime() + " 多單停損:" + input
+							+ " " + abscurrent + "口");
 					if (isFBOn)
-					f.alert(botname, getNowTime() + " 多單?��?:" + input + " "
-							+ abscurrent + "??);
+					f.alert(botname, getNowTime() + " 多單停損:" + input + " "
+							+ abscurrent + "口");
 					if (isCalOn)
-					cal.addEvent(getNowTime() + " 多單?��?:" + input + " "
-							+ abscurrent + "??);*/
+					cal.addEvent(getNowTime() + " 多單停損:" + input + " "
+							+ abscurrent + "口");*/
 				} else {
 					current = 0;
 					writetxt(input);
@@ -1584,21 +1580,21 @@ public class NewDdeClient {
 					}
 					init();
 					txt.setOutput(getNowTime() + " BUY1W! cost:" + input + " "
-							+ abscurrent + "??);
+							+ abscurrent + "口");
 					/*if (isGtalkOn)
-					g.alert(botname, Email, getNowTime() + " 多單?�利:" + input
-							+ " " + abscurrent + "??);
+					g.alert(botname, Email, getNowTime() + " 多單停利:" + input
+							+ " " + abscurrent + "口");
 					if (isFBOn)
-					f.alert(botname, getNowTime() + " 多單?�利:" + input + " "
-							+ abscurrent + "??);
+					f.alert(botname, getNowTime() + " 多單停利:" + input + " "
+							+ abscurrent + "口");
 					if (isCalOn)
-					cal.addEvent(getNowTime() + " 多單?�利:" + input + " "
-							+ abscurrent + "??);*/
+					cal.addEvent(getNowTime() + " 多單停利:" + input + " "
+							+ abscurrent + "口");*/
 				}
 			} else {
 				if (!up) {
 					if (!((SGXTWGap() - 0.0012) > 0)) {
-						if (input <= price[0]) { // 多方?��?
+						if (input <= price[0]) { // 多方停損
 							current = 0;
 							writetxt(input);
 							for (int i = 0; i < abscurrent; i++) {
@@ -1607,16 +1603,16 @@ public class NewDdeClient {
 							}
 							init();
 							txt.setOutput(getNowTime() + " BUYL! cost:" + input
-									+ " " + abscurrent + "??);
+									+ " " + abscurrent + "口");
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + " 多單?��?:"
-									+ input + " " + abscurrent + "??);
+							g.alert(botname, Email, getNowTime() + " 多單停損:"
+									+ input + " " + abscurrent + "口");
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " 多單?��?:"
-									+ input + " " + abscurrent + "??);
+							f.alert(botname, getNowTime() + " 多單停損:"
+									+ input + " " + abscurrent + "口");
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " 多單?��?:" + input + " "
-									+ abscurrent + "??);*/
+							cal.addEvent(getNowTime() + " 多單停損:" + input + " "
+									+ abscurrent + "口");*/
 						} else {
 							current = 0;
 							writetxt(input);
@@ -1626,16 +1622,16 @@ public class NewDdeClient {
 							}
 							init();
 							txt.setOutput(getNowTime() + " BUYW! cost:" + input
-									+ " " + abscurrent + "??);
+									+ " " + abscurrent + "口");
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + " 多單?�利:"
-									+ input + " " + abscurrent + "??);
+							g.alert(botname, Email, getNowTime() + " 多單停利:"
+									+ input + " " + abscurrent + "口");
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " 多單?�利:"
-									+ input + " " + abscurrent + "??);
+							f.alert(botname, getNowTime() + " 多單停利:"
+									+ input + " " + abscurrent + "口");
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " 多單?�利:" + input + " "
-									+ abscurrent + "??);*/
+							cal.addEvent(getNowTime() + " 多單停利:" + input + " "
+									+ abscurrent + "口");*/
 						}
 					}
 				} else {
@@ -1649,25 +1645,25 @@ public class NewDdeClient {
 							abscurrent = Math.abs(current);
 							writetxt(0);
 							txt.setOutput(getNowTime() + " max4:" + input + " "
-									+ abscurrent + "??);
+									+ abscurrent + "口");
 							// range += 2;
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + " 多單?�碼:"
-									+ input + " " + abscurrent + "??);
+							g.alert(botname, Email, getNowTime() + " 多單加碼:"
+									+ input + " " + abscurrent + "口");
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " 多單?�碼:"
-									+ input + " " + abscurrent + "??);
+							f.alert(botname, getNowTime() + " 多單加碼:"
+									+ input + " " + abscurrent + "口");
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " 多單?�碼:" + input + " "
-									+ abscurrent + "??);*/
+							cal.addEvent(getNowTime() + " 多單加碼:" + input + " "
+									+ abscurrent + "口");*/
 							hlflag = 0;
 						}
 					}
 				}
 			}
 		} else if (current < 0) {
-			if ((input >= (lowo + GapvoloutH)) && hlflag == -1 && (SGXTWGap() + SGXGap56) > 0) { // ?�斷?�否低�??��?
-				if (input >= price[0]) { // 空方?��?
+			if ((input >= (lowo + GapvoloutH)) && hlflag == -1 && (SGXTWGap() + SGXGap56) > 0) { // 判斷是否低點回檔
+				if (input >= price[0]) { // 空方停損
 					current = 0;
 					writetxt(input);
 					for (int i = 0; i < abscurrent; i++) {
@@ -1676,16 +1672,16 @@ public class NewDdeClient {
 					}
 					init();
 					txt.setOutput(getNowTime() + " SELL1L! cost:" + input + " "
-							+ abscurrent + "??);
+							+ abscurrent + "口");
 					/*if (isGtalkOn)
-					g.alert(botname, Email, getNowTime() + " 空單?��?:" + input
-							+ " " + abscurrent + "??);
+					g.alert(botname, Email, getNowTime() + " 空單停損:" + input
+							+ " " + abscurrent + "口");
 					if (isFBOn)
-					f.alert(botname, getNowTime() + " 空單?��?:" + input + " "
-							+ abscurrent + "??);
+					f.alert(botname, getNowTime() + " 空單停損:" + input + " "
+							+ abscurrent + "口");
 					if (isCalOn)
-					cal.addEvent(getNowTime() + " 空單?��?:" + input + " "
-							+ abscurrent + "??);*/
+					cal.addEvent(getNowTime() + " 空單停損:" + input + " "
+							+ abscurrent + "口");*/
 				} else {
 					current = 0;
 					writetxt(input);
@@ -1695,21 +1691,21 @@ public class NewDdeClient {
 					}
 					init();
 					txt.setOutput(getNowTime() + " SELL1! cost:" + input + " "
-							+ abscurrent + "??);
+							+ abscurrent + "口");
 					/*if (isGtalkOn)
-					g.alert(botname, Email, getNowTime() + " 空單?�利:" + input
-							+ " " + abscurrent + "??);
+					g.alert(botname, Email, getNowTime() + " 空單停利:" + input
+							+ " " + abscurrent + "口");
 					if (isFBOn)
-					f.alert(botname, getNowTime() + " 空單?�利:" + input + " "
-							+ abscurrent + "??);
+					f.alert(botname, getNowTime() + " 空單停利:" + input + " "
+							+ abscurrent + "口");
 					if (isCalOn)
-					cal.addEvent(getNowTime() + " 空單?�利:" + input + " "
-							+ abscurrent + "??);*/
+					cal.addEvent(getNowTime() + " 空單停利:" + input + " "
+							+ abscurrent + "口");*/
 				}
 			} else {
 				if (up) {
 					if (!((SGXTWGap() + 0.0012) < 0)) {
-						if (input >= price[0]) { // 空方?��?
+						if (input >= price[0]) { // 空方停損
 							current = 0;
 							writetxt(input);
 							for (int i = 0; i < abscurrent; i++) {
@@ -1718,16 +1714,16 @@ public class NewDdeClient {
 							}
 							init();
 							txt.setOutput(getNowTime() + " SELLL! cost:"
-									+ input + " " + abscurrent + "??);
+									+ input + " " + abscurrent + "口");
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + " 空單?��?:"
-									+ input + " " + abscurrent + "??);
+							g.alert(botname, Email, getNowTime() + " 空單停損:"
+									+ input + " " + abscurrent + "口");
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " 空單?��?:"
-									+ input + " " + abscurrent + "??);
+							f.alert(botname, getNowTime() + " 空單停損:"
+									+ input + " " + abscurrent + "口");
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " 空單?��?:" + input + " "
-									+ abscurrent + "??);*/
+							cal.addEvent(getNowTime() + " 空單停損:" + input + " "
+									+ abscurrent + "口");*/
 						} else {
 							current = 0;
 							writetxt(input);
@@ -1737,16 +1733,16 @@ public class NewDdeClient {
 							}
 							init();
 							txt.setOutput(getNowTime() + " SELLW! cost:"
-									+ input + " " + abscurrent + "??);
+									+ input + " " + abscurrent + "口");
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + " 空單?�利:"
-									+ input + " " + abscurrent + "??);
+							g.alert(botname, Email, getNowTime() + " 空單停利:"
+									+ input + " " + abscurrent + "口");
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " 空單?�利:"
-									+ input + " " + abscurrent + "??);
+							f.alert(botname, getNowTime() + " 空單停利:"
+									+ input + " " + abscurrent + "口");
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " 空單?�利:" + input + " "
-									+ abscurrent + "??);*/
+							cal.addEvent(getNowTime() + " 空單停利:" + input + " "
+									+ abscurrent + "口");*/
 						}
 					}
 				} else {
@@ -1760,17 +1756,17 @@ public class NewDdeClient {
 							abscurrent = Math.abs(current);
 							writetxt(0);
 							txt.setOutput(getNowTime() + " min4:" + input + " "
-									+ abscurrent + "??);
+									+ abscurrent + "口");
 							// range += 2;
 							/*if (isGtalkOn)
-							g.alert(botname, Email, getNowTime() + " 空單?�碼:"
-									+ input + " " + abscurrent + "??);
+							g.alert(botname, Email, getNowTime() + " 空單加碼:"
+									+ input + " " + abscurrent + "口");
 							if (isFBOn)
-							f.alert(botname, getNowTime() + " 空單?�碼:"
-									+ input + " " + abscurrent + "??);
+							f.alert(botname, getNowTime() + " 空單加碼:"
+									+ input + " " + abscurrent + "口");
 							if (isCalOn)
-							cal.addEvent(getNowTime() + " 空單?�碼:" + input + " "
-									+ abscurrent + "??);*/
+							cal.addEvent(getNowTime() + " 空單加碼:" + input + " "
+									+ abscurrent + "口");*/
 							hlflag = 0;
 						}
 					}
@@ -1785,7 +1781,7 @@ public class NewDdeClient {
 				if (SGXTWGap() > 0)
 					sval = svalA + (int) (SGXTWGap() / 0.0012) * 5;
 				if (!(SGXTWGap() > 0.00248)) {
-					if (input <= (price[abscurrent - 1] - sval)) { // 多方?��?
+					if (input <= (price[abscurrent - 1] - sval)) { // 多方停損
 						current = 0;
 						writetxt(input);
 						for (int i = 0; i < abscurrent; i++) {
@@ -1799,19 +1795,19 @@ public class NewDdeClient {
 						}
 						init();
 						txt.setOutput(getNowTime() + " BUYLN! cost:" + input
-								+ " " + abscurrent + "??);
+								+ " " + abscurrent + "口");
 						/*if (isGtalkOn)
-						g.alert(botname, Email, getNowTime() + " 多單?��?:" + input
-								+ " " + abscurrent + "??);
+						g.alert(botname, Email, getNowTime() + " 多單停損:" + input
+								+ " " + abscurrent + "口");
 						if (isFBOn)
-						f.alert(botname, getNowTime() + " 多單?��?:" + input
-								+ " " + abscurrent + "??);
+						f.alert(botname, getNowTime() + " 多單停損:" + input
+								+ " " + abscurrent + "口");
 						if (isCalOn)
-						cal.addEvent(getNowTime() + " 多單?��?:" + input + " "
-								+ abscurrent + "??);*/
+						cal.addEvent(getNowTime() + " 多單停損:" + input + " "
+								+ abscurrent + "口");*/
 						sval = 30;
 					}
-				} else if (input <= (price[abscurrent - 1] - svalT)) { // 多方?��?
+				} else if (input <= (price[abscurrent - 1] - svalT)) { // 多方停損
 					int wint = 0;
 					int lostt = 0;
 					int totalt = total;
@@ -1838,16 +1834,16 @@ public class NewDdeClient {
 						}
 						init();
 						txt.setOutput(getNowTime() + " BUYL80! cost:" + input
-								+ " " + abscurrent + "??);
+								+ " " + abscurrent + "口");
 						/*if (isGtalkOn)
-						g.alert(botname, Email, getNowTime() + " 多單?��?:" + input
-								+ " " + abscurrent + "??);
+						g.alert(botname, Email, getNowTime() + " 多單停損:" + input
+								+ " " + abscurrent + "口");
 						if (isFBOn)
-						f.alert(botname, getNowTime() + " 多單?��?:" + input
-								+ " " + abscurrent + "??);
+						f.alert(botname, getNowTime() + " 多單停損:" + input
+								+ " " + abscurrent + "口");
 						if (isCalOn)
-						cal.addEvent(getNowTime() + " 多單?��?:" + input + " "
-								+ abscurrent + "??);*/
+						cal.addEvent(getNowTime() + " 多單停損:" + input + " "
+								+ abscurrent + "口");*/
 						sval = 30;
 						runflag = false;
 					}
@@ -1856,7 +1852,7 @@ public class NewDdeClient {
 				if (SGXTWGap() < 0)
 					sval = svalA + (int) (SGXTWGap() / -0.0012) * 5;
 				if (!(SGXTWGap() < -0.00248)) {
-					if (input >= (price[abscurrent - 1] + sval)) { // 空方?��?
+					if (input >= (price[abscurrent - 1] + sval)) { // 空方停損
 						current = 0;
 						writetxt(input);
 						for (int i = 0; i < abscurrent; i++) {
@@ -1870,19 +1866,19 @@ public class NewDdeClient {
 						}
 						init();
 						txt.setOutput(getNowTime() + " SELLLN! cost:" + input
-								+ " " + abscurrent + "??);
+								+ " " + abscurrent + "口");
 						/*if (isGtalkOn)
-						g.alert(botname, Email, getNowTime() + " 空單?��?:" + input
-								+ " " + abscurrent + "??);
+						g.alert(botname, Email, getNowTime() + " 空單停損:" + input
+								+ " " + abscurrent + "口");
 						if (isFBOn)
-						f.alert(botname, getNowTime() + " 空單?��?:" + input
-								+ " " + abscurrent + "??);
+						f.alert(botname, getNowTime() + " 空單停損:" + input
+								+ " " + abscurrent + "口");
 						if (isCalOn)
-						cal.addEvent(getNowTime() + " 空單?��?:" + input + " "
-								+ abscurrent + "??);*/
+						cal.addEvent(getNowTime() + " 空單停損:" + input + " "
+								+ abscurrent + "口");*/
 						sval = 30;
 					}
-				} else if (input >= (price[abscurrent - 1] + svalT)) { // 空方?��?
+				} else if (input >= (price[abscurrent - 1] + svalT)) { // 空方停損
 					int wint = 0;
 					int lostt = 0;
 					int totalt = total;
@@ -1909,16 +1905,16 @@ public class NewDdeClient {
 						}
 						init();
 						txt.setOutput(getNowTime() + " SELLL80! cost:" + input
-								+ " " + abscurrent + "??);
+								+ " " + abscurrent + "口");
 						/*if (isGtalkOn)
-						g.alert(botname, Email, getNowTime() + " 空單?��?:" + input
-								+ " " + abscurrent + "??);
+						g.alert(botname, Email, getNowTime() + " 空單停損:" + input
+								+ " " + abscurrent + "口");
 						if (isFBOn)
-						f.alert(botname, getNowTime() + " 空單?��?:" + input
-								+ " " + abscurrent + "??);
+						f.alert(botname, getNowTime() + " 空單停損:" + input
+								+ " " + abscurrent + "口");
 						if (isCalOn)
-						cal.addEvent(getNowTime() + " 空單?��?:" + input + " "
-								+ abscurrent + "??);*/
+						cal.addEvent(getNowTime() + " 空單停損:" + input + " "
+								+ abscurrent + "口");*/
 						sval = 30;
 						runflag = false;
 					}
@@ -1942,7 +1938,7 @@ public class NewDdeClient {
 	}
 
 	void check_runtime() {
-		java.util.Date now = new java.util.Date(); // ?��??�在?��?
+		java.util.Date now = new java.util.Date(); // 取得現在時間
 		SimpleDateFormat sf = new SimpleDateFormat("HH:mm:ss E",
 				java.util.Locale.TAIWAN);
 		String sGMT = sf.format(now);
@@ -1999,27 +1995,27 @@ public class NewDdeClient {
 						total = total + (inputt - price[i]);
 						txt.setOutput(getNowTime() + " BUYCW! cost:" + inputt);
 						/*if (isGtalkOn)
-						g.alert(botname, Email, getNowTime() + " 多單?�利:"
-								+ inputt + " " + abscurrent + "??);
+						g.alert(botname, Email, getNowTime() + " 多單停利:"
+								+ inputt + " " + abscurrent + "口");
 						if (isFBOn)
-						f.alert(botname, getNowTime() + " 多單?�利:" + inputt
-								+ " " + abscurrent + "??);
+						f.alert(botname, getNowTime() + " 多單停利:" + inputt
+								+ " " + abscurrent + "口");
 						if (isCalOn)
-						cal.addEvent(getNowTime() + " 多單?�利:" + inputt + " "
-								+ abscurrent + "??);*/
+						cal.addEvent(getNowTime() + " 多單停利:" + inputt + " "
+								+ abscurrent + "口");*/
 					} else {
 						lost = lost + (price[i] - inputt);
 						total = total - (price[i] - inputt);
 						txt.setOutput(getNowTime() + " BUYCL! cost:" + inputt);
 						/*if (isGtalkOn)
-						g.alert(botname, Email, getNowTime() + " 多單?��?:"
-								+ inputt + " " + abscurrent + "??);
+						g.alert(botname, Email, getNowTime() + " 多單停損:"
+								+ inputt + " " + abscurrent + "口");
 						if (isFBOn)
-						f.alert(botname, getNowTime() + " 多單?��?:" + inputt
-								+ " " + abscurrent + "??);
+						f.alert(botname, getNowTime() + " 多單停損:" + inputt
+								+ " " + abscurrent + "口");
 						if (isCalOn)
-						cal.addEvent(getNowTime() + " 多單?��?:" + inputt + " "
-								+ abscurrent + "??);*/
+						cal.addEvent(getNowTime() + " 多單停損:" + inputt + " "
+								+ abscurrent + "口");*/
 					}
 				}
 				current = 0;
@@ -2033,27 +2029,27 @@ public class NewDdeClient {
 						total = total + (price[i] - inputt);
 						txt.setOutput(getNowTime() + " SELLCW! cost:" + inputt);
 						/*if (isGtalkOn)
-						g.alert(botname, Email, getNowTime() + " 空單?�利:"
-								+ inputt + " " + abscurrent + "??);
+						g.alert(botname, Email, getNowTime() + " 空單停利:"
+								+ inputt + " " + abscurrent + "口");
 						if (isFBOn)
-						f.alert(botname, getNowTime() + " 空單?�利:" + inputt
-								+ " " + abscurrent + "??);
+						f.alert(botname, getNowTime() + " 空單停利:" + inputt
+								+ " " + abscurrent + "口");
 						if (isCalOn)
-						cal.addEvent(getNowTime() + " 空單?�利:" + inputt + " "
-								+ abscurrent + "??);*/
+						cal.addEvent(getNowTime() + " 空單停利:" + inputt + " "
+								+ abscurrent + "口");*/
 					} else {
 						lost = lost + (inputt - price[i]);
 						total = total - (inputt - price[i]);
 						txt.setOutput(getNowTime() + " SELLCL! cost:" + inputt);
 						/*if (isGtalkOn)
-						g.alert(botname, Email, getNowTime() + " 空單?��?:"
-								+ inputt + " " + abscurrent + "??);
+						g.alert(botname, Email, getNowTime() + " 空單停損:"
+								+ inputt + " " + abscurrent + "口");
 						if (isFBOn)
-						f.alert(botname, getNowTime() + " 空單?��?:" + inputt
-								+ " " + abscurrent + "??);
+						f.alert(botname, getNowTime() + " 空單停損:" + inputt
+								+ " " + abscurrent + "口");
 						if (isCalOn)
-						cal.addEvent(getNowTime() + " 空單?��?:" + inputt + " "
-								+ abscurrent + "??);*/
+						cal.addEvent(getNowTime() + " 空單停損:" + inputt + " "
+								+ abscurrent + "口");*/
 					}
 				}
 				current = 0;
@@ -2167,7 +2163,7 @@ public class NewDdeClient {
 	}
 	
 	private void setSGXTime(){
-		java.util.Date now = new java.util.Date(); // ?��??�在?��?
+		java.util.Date now = new java.util.Date(); // 取得現在時間
 		SimpleDateFormat sf = new SimpleDateFormat("HH:mm:ss E",
 				java.util.Locale.TAIWAN);
 		SGXTime = sf.format(now);
