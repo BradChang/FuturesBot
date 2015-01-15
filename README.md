@@ -65,8 +65,10 @@ FuturesBot - 台指期當沖自動交易機器人
 	3. 要申請群益API，請洽營業員
 	2. 要開通群益API，請洽營業員
 	3. java要用32位元的
-	
-2. 用文字編輯器設定capital_futurebot.json
+
+2. 移動setting\capital_futurebot.json到主目錄`move setting\capital_futurebot.json ..`
+
+3. 用文字編輯器(或任何json editor)設定capital_futurebot.json
 
     1. ca_account : 期貨帳號，從策略王裡面抄 F+13碼數字
 	2. ca_id : 身份證字號
@@ -76,11 +78,11 @@ FuturesBot - 台指期當沖自動交易機器人
 	6. position : 0 目前部位，下單後程式會更改
 	7. symbol : 內定交易小台代號MTX00，可改為大台代號TX00
 	
-3. 移動群益設定檔 config.ini 到 %PATH% 中 java.exe 的目錄所在，預設環境在 C:\ProgramData\Oracle\Java\javapath
+4. 移動群益設定檔 config.ini 到 %PATH% 中 java.exe 的目錄所在，預設環境在 C:\ProgramData\Oracle\Java\javapath
 
-4. 所在目錄執行``ant``可得到 bot.jar，執行``java -jar bot.jar``
+5. 所在目錄執行``ant``可得到 bot.jar，執行``java -jar bot.jar``
 
-5. 程式簡易說明
+6. 程式簡易說明
 
 	1. 做一個下單元件skorder.jar (https://bitbucket.org/lwhuang/capital_order_jna)
 	2. 修改NewDdeClient::NewDdeClient()引入skorder
