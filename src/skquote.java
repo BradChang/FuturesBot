@@ -46,10 +46,8 @@ public class skquote
 
 			ca_id = (String) jsonObject.get("ca_id");
 			System.out.println("ca_id: " + ca_id);
-
+			
 			ca_password = (String) jsonObject.get("ca_password");
-			System.out.println("ca_password: " + ca_password);
-
 			ca_account = (String) jsonObject.get("ca_account");
 			System.out.println("ca_account: " + ca_account);
 		}
@@ -94,10 +92,12 @@ public class skquote
 					.SKQuoteLib_AttachConnectionCallBack(new quote.FOnNotifyConnection());
 			// int tot = skquotelib.SKQuoteLib_AttachMarketTotCallBack(fnmt);
 
-			// ret += SKQuoteLib.INSTANCE.SKQuoteLib_AttachQuoteCallBack(new quote.FOnNotifyQuote());
+			ret += SKQuoteLib.INSTANCE.SKQuoteLib_AttachQuoteCallBack(new quote.FOnNotifyQuote());
 			ret += SKQuoteLib.INSTANCE.SKQuoteLib_AttachTicksGetCallBack(new TicksGet());
-			SKQuoteLib.INSTANCE.SKQuoteLib_EnterMonitor();
+			ret += SKQuoteLib.INSTANCE.SKQuoteLib_EnterMonitor();
 			// SKQuoteLib.INSTANCE.SKQuoteLib_RequestStocks(sbr_one, "TX00,TSLD");
+			String debug = "EnterMonitor " + ret;
+			System.out.println(debug);
 		}
 
 		// os
@@ -118,7 +118,8 @@ public class skquote
 					.SKOSQuoteLib_AttachStockCallBack(new skosquote.FOnStockGet());
 			ret += SKOSQuoteLib.INSTANCE.SKOSQuoteLib_AttachTicksGetCallBack(new TicksGetOS());
 
-			SKOSQuoteLib.INSTANCE.SKOSQuoteLib_EnterMonitor((short) 0);
+			ret += SKOSQuoteLib.INSTANCE.SKOSQuoteLib_EnterMonitor((short) 0);
+
 		}
 
 		try
@@ -129,21 +130,37 @@ public class skquote
 		{
 			Thread.currentThread().interrupt();
 		}
-		
-		ShortByReference sbr_zero = new ShortByReference((short) 0);
+
+		int RequestTicks = 1;
+		String debug;
+		//ShortByReference sbr_zero = new ShortByReference((short) 0);
 		ShortByReference sbr_neg = new ShortByReference((short) -1);
 		String tick = "TX00";
-		SKQuoteLib.INSTANCE.SKQuoteLib_RequestTicks(sbr_neg, tick);
-		
+		if (RequestTicks == 1)
+		{
+			ret = SKQuoteLib.INSTANCE.SKQuoteLib_RequestTicks(sbr_neg, tick);
+			debug = "SKQuoteLib_RequestTicks = ";
+		}
+		else
+		{
+			ret = SKQuoteLib.INSTANCE.SKQuoteLib_RequestStocks(sbr_neg, "TX00");
+			debug = "RequestStocks = ";
+		}
+		debug += ret;
+		System.out.println(debug);
+
 		shell.open();
 		Point p;
 		while (!shell.isDisposed())
 		{
 			if (!display.readAndDispatch())
 				display.sleep();
-			label_TX00.setText(TicksGet.msg);
-			p = label_TX00.computeSize(SWT.DEFAULT, SWT.DEFAULT);
-			label_TX00.setBounds(0, 100, p.x+5, p.y+5);
+			if (RequestTicks == 1)
+				label_TX00.setText(TicksGet.msg);
+			else
+				label_TX00.setText(quote.FOnNotifyQuote.msg);
+			//p = label_TX00.computeSize(SWT.DEFAULT, SWT.DEFAULT);
+			//label_TX00.setBounds(0, 100, p.x + 5, p.y + 5);
 		}
 		display.dispose();
 
