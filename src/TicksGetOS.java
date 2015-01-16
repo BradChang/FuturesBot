@@ -27,7 +27,7 @@ public class TicksGetOS implements StdCallCallback
 			msg += foreign.m_nTQty + ",";
 			msg += PriceShow(foreign.m_nRef, foreign);// 群益海期API都是0
 
-			System.out.println(msg);
+			//System.out.println(msg);
 		}
 	}
 

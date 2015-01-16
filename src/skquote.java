@@ -27,16 +27,17 @@ import skosquote.FOnNotifyConnection;
 
 public class skquote
 {
+	public static int RequestTicks = 1;
 	private static final String POSITION_JSON = "capital_futurebot.json";
 	static String ca_id = "A123456789", ca_password = "mypassword";
 	static String ca_account = "F02000", ca_stock_account = "123456";
 	static String symbol = "MTX00";
-
+	
 	public static Queue<String> queue = new LinkedList<String>();
 
 	public static void main(String[] args)
 	{
-		int RequestTicks = 1;
+		
 		int ret;
 		// TODO Auto-generated method stub
 		JSONParser parser = new JSONParser();
@@ -116,30 +117,34 @@ public class skquote
 		/*
 		 * final Button button = new Button(shell, SWT.PUSH); button.setText("接收報價"); final Button close = new Button(shell, SWT.PUSH); close.setText("結束連線");
 		 */
+		Point p;
 		final Label label_TX00 = new Label(shell, SWT.LEFT);
 		final Label label_TWN = new Label(shell, SWT.LEFT);
 		final Label label_KOSPI = new Label(shell, SWT.LEFT);
-		label_TX00.setText("Connecting...");
-		label_TX00.setLocation(0, 100);
-		label_TWN.setLocation(0, 300);
-		label_KOSPI.setLocation(0, 500);
+		label_TX00.setText("TX00,9108.0,0,9109.0,0,9109.0,9229.0,9082.0,4,78465,9194.0");
+		//p = label_TX00.computeSize(SWT.DEFAULT, SWT.DEFAULT);
+		//label_TX00.setBounds(100, 0, p.x + 5, p.y + 5);
+		
+		label_TWN.setText("TX00,9108.0,0,9109.0,0,9109.0,9229.0,9082.0,4,78465,9194.0");
+		//p = label_TWN.computeSize(SWT.DEFAULT, SWT.DEFAULT);
+		//label_TWN.setBounds(200, 0, p.x + 5, p.y + 5);
+
+		label_KOSPI.setLocation(0, 300);
 
 		ret = SKQuoteLib.INSTANCE.SKQuoteLib_Initialize(ca_id, ca_password);
 		if (ret == 0)
 		{
 			//System.out.println("SKQuoteLib_Initialize ok");
-			// fnkld=new FOnNotifyKLineData();
-			// fnmt = new FOnNotifyMarketTot(skquotelib,twse_ohlc);
-			// fnq = new FOnNotifyQuote(skquotelib,twse_ohlc);
-			// int kline = skquotelib.SKQuoteLib_AttachKLineDataCallBack(fnkld);
 			ret += SKQuoteLib.INSTANCE
 					.SKQuoteLib_AttchServerTimeCallBack(new quote.FOnNotifyServerTime());
 			ret += SKQuoteLib.INSTANCE
 					.SKQuoteLib_AttachConnectionCallBack(new quote.FOnNotifyConnection());
 			// int tot = skquotelib.SKQuoteLib_AttachMarketTotCallBack(fnmt);
 
-			ret += SKQuoteLib.INSTANCE.SKQuoteLib_AttachQuoteCallBack(new quote.FOnNotifyQuote());
-			ret += SKQuoteLib.INSTANCE.SKQuoteLib_AttachTicksGetCallBack(new TicksGet());
+			if (RequestTicks == 1)
+				ret += SKQuoteLib.INSTANCE.SKQuoteLib_AttachTicksGetCallBack(new TicksGet());
+			else
+				ret += SKQuoteLib.INSTANCE.SKQuoteLib_AttachQuoteCallBack(new quote.FOnNotifyQuote());
 			ret += SKQuoteLib.INSTANCE.SKQuoteLib_EnterMonitor();
 			System.out.println(new String("EnterMonitor = " + ret));
 		}
@@ -161,7 +166,8 @@ public class skquote
 			// ret += SKOSQuoteLib.INSTANCE.SKOSQuoteLib_AttachQuoteCallBack(new skosquote.FOnNotifyQuote());
 			ret += SKOSQuoteLib.INSTANCE
 					.SKOSQuoteLib_AttachStockCallBack(new skosquote.FOnStockGet());
-			ret += SKOSQuoteLib.INSTANCE.SKOSQuoteLib_AttachTicksGetCallBack(new TicksGetOS());
+			if (RequestTicks == 1)
+				ret += SKOSQuoteLib.INSTANCE.SKOSQuoteLib_AttachTicksGetCallBack(new TicksGetOS());
 
 			ret += SKOSQuoteLib.INSTANCE.SKOSQuoteLib_EnterMonitor((short) 0);
 			System.out.println(new String("OS EnterMonitor = " + ret));
@@ -194,7 +200,7 @@ public class skquote
 		System.out.println(debug);
 */
 		shell.open();
-		Point p;
+		
 		while (!shell.isDisposed())
 		{
 			if (!display.readAndDispatch())
@@ -202,18 +208,11 @@ public class skquote
 			if (RequestTicks == 1)
 			{
 				label_TX00.setText(TicksGet.msg);
-				//p = label_TX00.computeSize(SWT.DEFAULT, SWT.DEFAULT);
-				//label_TX00.setBounds(0, 100, p.x + 5, p.y + 5);
-				
 				label_TWN.setText(TicksGetOS.msg);
-				//p = label_TWN.computeSize(SWT.DEFAULT, SWT.DEFAULT);
-				//label_TWN.setBounds(0, 300, p.x + 5, p.y + 5);
 			}
 			else
 			{
 				label_TX00.setText(quote.FOnNotifyQuote.msg);
-				//p = label_TX00.computeSize(SWT.DEFAULT, SWT.DEFAULT);
-				//label_TX00.setBounds(0, 100, p.x + 5, p.y + 5);
 				label_TWN.setText(TicksGetOS.msg);
 			}
 			
