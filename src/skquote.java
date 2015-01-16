@@ -36,7 +36,7 @@ public class skquote
 
 	public static void main(String[] args)
 	{
-		int RequestTicks = 1;
+		int RequestTicks = 0;
 		int ret;
 		// TODO Auto-generated method stub
 		JSONParser parser = new JSONParser();
@@ -212,6 +212,8 @@ public class skquote
 			else
 			{
 				label_TX00.setText(quote.FOnNotifyQuote.msg);
+				//p = label_TX00.computeSize(SWT.DEFAULT, SWT.DEFAULT);
+				//label_TX00.setBounds(0, 100, p.x + 5, p.y + 5);
 				label_TWN.setText(TicksGetOS.msg);
 			}
 			
