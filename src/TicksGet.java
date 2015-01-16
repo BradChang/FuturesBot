@@ -32,6 +32,7 @@ public class TicksGet implements StdCallCallback
 			msg += PriceShow(stock.m_nRef, stock);
 
 			//System.out.println(msg);
+			//skquote.queue_price.add(msg);
 		}
 	}
 	

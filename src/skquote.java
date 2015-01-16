@@ -33,7 +33,7 @@ public class skquote
 	static String ca_account = "F02000", ca_stock_account = "123456";
 	static String symbol = "MTX00";
 	
-	public static Queue<String> queue = new LinkedList<String>();
+	public static Queue<String> queue_price = new LinkedList<String>();
 
 	public static void main(String[] args)
 	{
@@ -199,8 +199,8 @@ public class skquote
 		debug += ret;
 		System.out.println(debug);
 */
+		//NewDdeClient client = new NewDdeClient();
 		shell.open();
-		
 		while (!shell.isDisposed())
 		{
 			if (!display.readAndDispatch())
@@ -215,10 +215,12 @@ public class skquote
 				label_TX00.setText(quote.FOnNotifyQuote.msg);
 				label_TWN.setText(TicksGetOS.msg);
 			}
-			
+			//while(!queue_price.isEmpty())
+			{
+			//	client.doit(queue_price.remove());
+			}
 		}
 		display.dispose();
-
+		//client.close();
 	}
-
 }
