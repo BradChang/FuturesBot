@@ -209,6 +209,7 @@ public class skquote extends java.lang.Thread
 					// client.doit(queue_price.remove());
 				}
 			}
+			display.dispose();
 		}
 		else
 		{
@@ -216,26 +217,21 @@ public class skquote extends java.lang.Thread
 			boolean OutServer = false;
 			while (!OutServer)
 			{
-				while(!queue_price.isEmpty())
+				client.runflag = true;
+				while (!queue_price.isEmpty())
 					client.doit(queue_price.remove());
+
 				OutServer = check_runtime();
-				if (OutServer)
-				{
-					client.close();
-				}
-				else if (client.runflag == false)
-				{
-					client.runflag = true;
-				}
 			}
+			client.runflag = false;
+			client.close();
 		}
-		display.dispose();
 		// client.close();
 	}// main
 
 	static boolean check_runtime()
 	{
-		java.util.Date now = new java.util.Date(); // 取得現在時間
+		java.util.Date now = new java.util.Date(); // 取得現在時間.
 		SimpleDateFormat sf = new SimpleDateFormat("HH:mm:ss E", java.util.Locale.TAIWAN);
 		String sGMT = sf.format(now);
 		int hour = Integer.valueOf(sGMT.substring(0, 2)).intValue();
