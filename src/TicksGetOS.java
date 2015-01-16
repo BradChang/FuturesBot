@@ -14,7 +14,7 @@ public class TicksGetOS implements StdCallCallback
 		if (Status == 0)
 		{
 			// symbol,bid,bidvol,ask,askvol,price,high,low,vol,totalvol,yesterdayclose
-			String ticker = new String(foreign.m_caStockNo);
+			String ticker = new String(foreign.m_caStockNo).trim();
 			msg = ticker + ",";
 			msg += 0 + ",";
 			msg += 0 + ",";

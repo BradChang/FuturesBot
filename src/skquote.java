@@ -36,7 +36,7 @@ public class skquote
 
 	public static void main(String[] args)
 	{
-		int RequestTicks = 0;
+		int RequestTicks = 1;
 		int ret;
 		// TODO Auto-generated method stub
 		JSONParser parser = new JSONParser();
@@ -202,12 +202,12 @@ public class skquote
 			if (RequestTicks == 1)
 			{
 				label_TX00.setText(TicksGet.msg);
-				p = label_TX00.computeSize(SWT.DEFAULT, SWT.DEFAULT);
-				label_TX00.setBounds(0, 100, p.x + 5, p.y + 5);
+				//p = label_TX00.computeSize(SWT.DEFAULT, SWT.DEFAULT);
+				//label_TX00.setBounds(0, 100, p.x + 5, p.y + 5);
 				
 				label_TWN.setText(TicksGetOS.msg);
-				p = label_TWN.computeSize(SWT.DEFAULT, SWT.DEFAULT);
-				label_TWN.setBounds(0, 300, p.x + 5, p.y + 5);
+				//p = label_TWN.computeSize(SWT.DEFAULT, SWT.DEFAULT);
+				//label_TWN.setBounds(0, 300, p.x + 5, p.y + 5);
 			}
 			else
 			{

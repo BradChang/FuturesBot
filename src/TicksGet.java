@@ -18,7 +18,7 @@ public class TicksGet implements StdCallCallback
 		if (Status == 0)
 		{
 			//symbol,bid,bidvol,ask,askvol,price,high,low,vol,totalvol,yesterdayclose
-			String ticker = new String(stock.m_caStockNo);
+			String ticker = new String(stock.m_caStockNo).trim();
 			msg = ticker + ",";
 			msg += PriceShow(nBid, stock) + ",";
 			msg += 0 + ",";
