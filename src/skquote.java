@@ -112,7 +112,7 @@ public class skquote
 
 		});
 
-		System.out.println("start FutureBot");
+		//System.out.println("start FutureBot");
 		/*
 		 * final Button button = new Button(shell, SWT.PUSH); button.setText("接收報價"); final Button close = new Button(shell, SWT.PUSH); close.setText("結束連線");
 		 */
@@ -127,7 +127,7 @@ public class skquote
 		ret = SKQuoteLib.INSTANCE.SKQuoteLib_Initialize(ca_id, ca_password);
 		if (ret == 0)
 		{
-			System.out.println("SKQuoteLib_Initialize ok");
+			//System.out.println("SKQuoteLib_Initialize ok");
 			// fnkld=new FOnNotifyKLineData();
 			// fnmt = new FOnNotifyMarketTot(skquotelib,twse_ohlc);
 			// fnq = new FOnNotifyQuote(skquotelib,twse_ohlc);
@@ -148,7 +148,7 @@ public class skquote
 		ret = SKOSQuoteLib.INSTANCE.SKOSQuoteLib_Initialize(ca_id, ca_password);
 		if (ret == 0)
 		{
-			System.out.println("SKOSQuoteLib_Initialize ok");
+			//System.out.println("SKOSQuoteLib_Initialize ok");
 			// fnkld=new FOnNotifyKLineData();
 			// fnmt = new FOnNotifyMarketTot(skquotelib,twse_ohlc);
 			// fnq = new FOnNotifyQuote(skquotelib,twse_ohlc);
@@ -212,6 +212,7 @@ public class skquote
 			else
 			{
 				label_TX00.setText(quote.FOnNotifyQuote.msg);
+				label_TWN.setText(TicksGetOS.msg);
 			}
 			
 		}
