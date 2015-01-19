@@ -37,7 +37,7 @@ public class skquote extends java.lang.Thread
 	static String symbol = "MTX00";
 
 	public static Queue<String> queue_price = new LinkedList<String>();
-
+	private static NewDdeClient client;
 	public static void main(String[] args)
 	{
 
@@ -186,7 +186,7 @@ public class skquote extends java.lang.Thread
 		 * 
 		 * String tick = "TX00"; if (RequestTicks == 1) { ret = SKQuoteLib.INSTANCE.SKQuoteLib_RequestTicks(sbr_neg, tick); debug = "SKQuoteLib_RequestTicks = "; } else { ret = SKQuoteLib.INSTANCE.SKQuoteLib_RequestStocks(sbr_neg, "TX00"); debug = "RequestStocks = "; } debug += ret; System.out.println(debug);
 		 */
-		// NewDdeClient client = new NewDdeClient();
+		 
 		if (showgui == 1)
 		{
 			shell.open();
@@ -204,16 +204,16 @@ public class skquote extends java.lang.Thread
 					label_TX00.setText(quote.FOnNotifyQuote.msg);
 					label_TWN.setText(TicksGetOS.msg);
 				}
-				// while(!queue_price.isEmpty())
+				 while(!queue_price.isEmpty())
 				{
-					// client.doit(queue_price.remove());
+					 client.doit(queue_price.remove());
 				}
 			}
 			display.dispose();
 		}
 		else
 		{
-			NewDdeClient client = new NewDdeClient();
+			//NewDdeClient client = new NewDdeClient();
 			boolean OutServer = false;
 			while (!OutServer)
 			{
