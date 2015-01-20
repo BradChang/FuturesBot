@@ -9,10 +9,9 @@ public class skinit extends Thread
 {
 	public void run()
 	{
-		String tName = Thread.currentThread().getName();
-		System.out.println("askjdfasf " + tName);
+		//String tName = Thread.currentThread().getName();
 		int ret;
-		// Looper.prepare();
+
 		// os
 		ret = SKOSQuoteLib.INSTANCE.SKOSQuoteLib_Initialize(skquote.ca_id, skquote.ca_password);
 		if (ret == 0)
@@ -65,13 +64,5 @@ public class skinit extends Thread
 				display.sleep();
 		}
 		display.dispose();
-		
-		//while (true)
-		{
-			//try
-			{
-			//wait(1000);
-			}
-		}
 	}
 }

@@ -38,6 +38,8 @@ public class skquote extends java.lang.Thread
 
 	public static Queue<String> queue_price = new LinkedList<String>();
 	private static NewDdeClient client;
+	
+	public static Display display = new Display();
 
 	public static void main(String[] args)
 	{
@@ -70,9 +72,9 @@ public class skquote extends java.lang.Thread
 			e.printStackTrace();
 		}
 
-		final Display display = new Display();
+		
 		final Shell shell = new Shell(display);
-		shell.setSize(1600, 600);
+		shell.setSize(1200, 400);
 		shell.setText("FutureBot¸s¯q³ø»ù");
 		shell.setLayout(new RowLayout());
 		final Button getprice = new Button(shell, SWT.PUSH);
@@ -149,7 +151,7 @@ public class skquote extends java.lang.Thread
 		{
 			Thread.currentThread().interrupt();
 		}
-		System.out.println("skinit alive " + init.isAlive());
+		//System.out.println("skinit alive " + init.isAlive());
 		ShortByReference sbr_1 = new ShortByReference((short) 1);
 		ShortByReference sbr_2 = new ShortByReference((short) 2);
 		ShortByReference sbr_3 = new ShortByReference((short) 3);
