@@ -15,6 +15,7 @@ public class TicksGetOS implements StdCallCallback
 		{
 			// symbol,bid,bidvol,ask,askvol,price,high,low,vol,totalvol,yesterdayclose
 			String ticker = new String(foreign.m_caStockNo).trim();
+			//todo: make TWNT1501 -> TWN for NewDdeClient.doit()
 			msg = ticker + ",";
 			msg += 0 + ",";
 			msg += 0 + ",";
@@ -27,7 +28,8 @@ public class TicksGetOS implements StdCallCallback
 			msg += foreign.m_nTQty + ",";
 			msg += PriceShow(foreign.m_nRef, foreign);// 群益海期API都是0
 
-			//System.out.println(msg);
+			if (skquote.showgui == 0)
+				System.out.println(msg);
 			skquote.queue_price.add(msg);
 			//skquote.label_TWN.setText(msg);
 			skquote.display.wake();

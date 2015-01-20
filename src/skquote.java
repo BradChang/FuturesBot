@@ -167,7 +167,7 @@ public class skquote extends java.lang.Thread
 		ShortByReference sbr_4 = new ShortByReference((short) 4);
 		ret = SKQuoteLib.INSTANCE.SKQuoteLib_RequestTicks(sbr_1, "TX00");
 		System.out.println("RequestTicks = " + ret);
-		int retos = SKOSQuoteLib.INSTANCE.SKOSQuoteLib_RequestTicks(sbr_1, "SGX,TWN1501");
+		int retos = SKOSQuoteLib.INSTANCE.SKOSQuoteLib_RequestTicks(sbr_1, "SGX,TWNT1501");
 		retos += SKOSQuoteLib.INSTANCE.SKOSQuoteLib_RequestTicks(sbr_2, "17,KOSPI");
 		retos += SKOSQuoteLib.INSTANCE.SKOSQuoteLib_RequestTicks(sbr_3, "NYM,GC1502");
 		retos += SKOSQuoteLib.INSTANCE.SKOSQuoteLib_RequestTicks(sbr_4, "NYM,CL1502");
@@ -219,7 +219,7 @@ public class skquote extends java.lang.Thread
 			client.runflag = false;
 			client.close();
 		}
-		// client.close();
+		client.close();
 	}// main
 
 	static boolean check_runtime()
