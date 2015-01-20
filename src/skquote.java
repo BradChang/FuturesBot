@@ -38,6 +38,7 @@ public class skquote extends java.lang.Thread
 
 	public static Queue<String> queue_price = new LinkedList<String>();
 	private static NewDdeClient client;
+
 	public static void main(String[] args)
 	{
 
@@ -135,58 +136,39 @@ public class skquote extends java.lang.Thread
 
 		label_KOSPI.setLocation(0, 300);
 
-		ret = SKQuoteLib.INSTANCE.SKQuoteLib_Initialize(ca_id, ca_password);
-		if (ret == 0)
+		client = new NewDdeClient();
+
+		skinit init = new skinit();
+		init.start();
+
+		try
 		{
-			// System.out.println("SKQuoteLib_Initialize ok");
-			ret += SKQuoteLib.INSTANCE
-					.SKQuoteLib_AttchServerTimeCallBack(new quote.FOnNotifyServerTime());
-			ret += SKQuoteLib.INSTANCE
-					.SKQuoteLib_AttachConnectionCallBack(new quote.FOnNotifyConnection());
-			// int tot = skquotelib.SKQuoteLib_AttachMarketTotCallBack(fnmt);
-
-			if (RequestTicks == 1)
-				ret += SKQuoteLib.INSTANCE.SKQuoteLib_AttachTicksGetCallBack(new TicksGet());
-			else
-				ret += SKQuoteLib.INSTANCE
-						.SKQuoteLib_AttachQuoteCallBack(new quote.FOnNotifyQuote());
-			ret += SKQuoteLib.INSTANCE.SKQuoteLib_EnterMonitor();
-			System.out.println(new String("EnterMonitor = " + ret));
+			Thread.sleep(8000);
 		}
-
-		// os
-		ret = SKOSQuoteLib.INSTANCE.SKOSQuoteLib_Initialize(ca_id, ca_password);
-		if (ret == 0)
+		catch (InterruptedException ex)
 		{
-			// System.out.println("SKOSQuoteLib_Initialize ok");
-			// fnkld=new FOnNotifyKLineData();
-			// fnmt = new FOnNotifyMarketTot(skquotelib,twse_ohlc);
-			// fnq = new FOnNotifyQuote(skquotelib,twse_ohlc);
-			// int kline = skquotelib.SKQuoteLib_AttachKLineDataCallBack(fnkld);
-			ret += SKOSQuoteLib.INSTANCE
-					.SKOSQuoteLib_AttachServerTimeCallBack(new skosquote.FOnNotifyServerTime());
-			ret += SKOSQuoteLib.INSTANCE
-					.SKOSQuoteLib_AttachConnectCallBack(new skosquote.FOnNotifyConnection());
-			// int tot = skquotelib.SKQuoteLib_AttachMarketTotCallBack(fnmt);
-			// ret += SKOSQuoteLib.INSTANCE.SKOSQuoteLib_AttachQuoteCallBack(new skosquote.FOnNotifyQuote());
-			ret += SKOSQuoteLib.INSTANCE
-					.SKOSQuoteLib_AttachStockCallBack(new skosquote.FOnStockGet());
-			if (RequestTicks == 1)
-				ret += SKOSQuoteLib.INSTANCE.SKOSQuoteLib_AttachTicksGetCallBack(new TicksGetOS());
-
-			ret += SKOSQuoteLib.INSTANCE.SKOSQuoteLib_EnterMonitor((short) 0);
-			System.out.println(new String("OS EnterMonitor = " + ret));
+			Thread.currentThread().interrupt();
 		}
+		System.out.println("skinit alive " + init.isAlive());
+		ShortByReference sbr_1 = new ShortByReference((short) 1);
+		ShortByReference sbr_2 = new ShortByReference((short) 2);
+		ShortByReference sbr_3 = new ShortByReference((short) 3);
+		ShortByReference sbr_4 = new ShortByReference((short) 4);
+		ret = SKQuoteLib.INSTANCE.SKQuoteLib_RequestTicks(sbr_1, "TX00");
+		System.out.println("RequestTicks = " + ret);
+		int retos = SKOSQuoteLib.INSTANCE.SKOSQuoteLib_RequestTicks(sbr_1, "SGX,TWN1501");
+		retos += SKOSQuoteLib.INSTANCE.SKOSQuoteLib_RequestTicks(sbr_2, "17,KOSPI");
+		retos += SKOSQuoteLib.INSTANCE.SKOSQuoteLib_RequestTicks(sbr_3, "NYM,GC1502");
+		retos += SKOSQuoteLib.INSTANCE.SKOSQuoteLib_RequestTicks(sbr_4, "NYM,CL1502");
+		System.out.println("OS_RequestTicks = " + retos);
 
 		/*
-		 * try { Thread.sleep(5000); // 1000 milliseconds is one second. } catch (InterruptedException ex) { Thread.currentThread().interrupt(); }
-		 * 
 		 * 
 		 * String debug;
 		 * 
 		 * String tick = "TX00"; if (RequestTicks == 1) { ret = SKQuoteLib.INSTANCE.SKQuoteLib_RequestTicks(sbr_neg, tick); debug = "SKQuoteLib_RequestTicks = "; } else { ret = SKQuoteLib.INSTANCE.SKQuoteLib_RequestStocks(sbr_neg, "TX00"); debug = "RequestStocks = "; } debug += ret; System.out.println(debug);
 		 */
-		 
+
 		if (showgui == 1)
 		{
 			shell.open();
@@ -204,16 +186,16 @@ public class skquote extends java.lang.Thread
 					label_TX00.setText(quote.FOnNotifyQuote.msg);
 					label_TWN.setText(TicksGetOS.msg);
 				}
-				 while(!queue_price.isEmpty())
+				// while(!queue_price.isEmpty())
 				{
-					 client.doit(queue_price.remove());
+					// client.doit(queue_price.remove());
 				}
 			}
 			display.dispose();
 		}
 		else
 		{
-			//NewDdeClient client = new NewDdeClient();
+			// NewDdeClient client = new NewDdeClient();
 			boolean OutServer = false;
 			while (!OutServer)
 			{
