@@ -54,7 +54,7 @@ public class skinit extends Thread
 		
 		Display display = new Display();
 		Shell shell = new Shell(display);
-		shell.setSize(600, 600);
+		shell.setSize(300, 100);
 		shell.setText("skinit");
 		shell.setLayout(new RowLayout());
 		shell.open();

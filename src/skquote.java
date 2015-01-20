@@ -9,6 +9,8 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.RowLayout;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
@@ -40,6 +42,10 @@ public class skquote extends java.lang.Thread
 	private static NewDdeClient client;
 	
 	public static Display display = new Display();
+	public static Shell shell = new Shell(display);
+	public static Label label_TX00 = new Label(shell, SWT.LEFT);
+	public static Label label_TWN = new Label(shell, SWT.LEFT);
+	public static Label label_KOSPI = new Label(shell, SWT.LEFT);
 
 	public static void main(String[] args)
 	{
@@ -74,9 +80,12 @@ public class skquote extends java.lang.Thread
 
 		
 		final Shell shell = new Shell(display);
-		shell.setSize(1200, 400);
+		shell.setSize(600, 200);
 		shell.setText("FutureBot群益報價");
-		shell.setLayout(new RowLayout());
+		GridLayout gridLayout = new GridLayout();
+		gridLayout.numColumns = 1;
+		shell.setLayout(gridLayout);
+		/*
 		final Button getprice = new Button(shell, SWT.PUSH);
 		getprice.setText("報價");
 		getprice.addSelectionListener(new SelectionListener()
@@ -119,7 +128,7 @@ public class skquote extends java.lang.Thread
 			{}
 
 		});
-
+*/
 		// System.out.println("start FutureBot");
 		/*
 		 * final Button button = new Button(shell, SWT.PUSH); button.setText("接收報價"); final Button close = new Button(shell, SWT.PUSH); close.setText("結束連線");
@@ -128,7 +137,7 @@ public class skquote extends java.lang.Thread
 		final Label label_TX00 = new Label(shell, SWT.LEFT);
 		final Label label_TWN = new Label(shell, SWT.LEFT);
 		final Label label_KOSPI = new Label(shell, SWT.LEFT);
-		label_TX00.setText("TX00,9108.0,0,9109.0,0,9109.0,9229.0,9082.0,4,78465,9194.0");
+		label_TX00.setText("TX00,9108.0,0,9109.0,0,9109.0,9229.0,9082.0,4,78465,9194.0sd;lfkgjsdl;kg");
 		// p = label_TX00.computeSize(SWT.DEFAULT, SWT.DEFAULT);
 		// label_TX00.setBounds(100, 0, p.x + 5, p.y + 5);
 
@@ -145,7 +154,7 @@ public class skquote extends java.lang.Thread
 
 		try
 		{
-			Thread.sleep(8000);
+			Thread.sleep(6000);
 		}
 		catch (InterruptedException ex)
 		{

@@ -34,6 +34,7 @@ public class TicksGet implements StdCallCallback
 			if (skquote.showgui == 0)
 				System.out.println(msg);
 			skquote.queue_price.add(msg);
+			//skquote.label_TX00.setText(msg);
 			skquote.display.wake();
 		}
 	}

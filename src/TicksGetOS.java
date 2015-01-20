@@ -29,6 +29,7 @@ public class TicksGetOS implements StdCallCallback
 
 			//System.out.println(msg);
 			skquote.queue_price.add(msg);
+			//skquote.label_TWN.setText(msg);
 			skquote.display.wake();
 		}
 	}
