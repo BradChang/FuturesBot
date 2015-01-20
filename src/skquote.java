@@ -186,9 +186,9 @@ public class skquote extends java.lang.Thread
 					label_TX00.setText(quote.FOnNotifyQuote.msg);
 					label_TWN.setText(TicksGetOS.msg);
 				}
-				// while(!queue_price.isEmpty())
+				while(!queue_price.isEmpty())
 				{
-					// client.doit(queue_price.remove());
+					 client.doit(queue_price.remove());
 				}
 			}
 			display.dispose();

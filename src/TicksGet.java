@@ -37,11 +37,11 @@ public class TicksGet implements StdCallCallback
 		}
 	}
 	
-	private float PriceShow(int PriceCallback, SKQuoteLib.Stock stock)
+	private int PriceShow(int PriceCallback, SKQuoteLib.Stock stock)
 	{
 		int divisor = PriceDivisor(stock.m_sDecimal);
 		float Quotient = (float)PriceCallback/divisor;
-		return Quotient;
+		return (int)Quotient;
 	}
 
 	private int PriceDivisor(short m_sDecimal)
