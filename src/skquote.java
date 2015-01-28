@@ -3,6 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Iterator;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -31,7 +32,7 @@ import java.text.SimpleDateFormat;
 
 public class skquote extends java.lang.Thread
 {
-	public static int RequestTicks = 1;
+	public static int RequestTicks = 0;
 	public static int showgui = 1;
 	private static final String POSITION_JSON = "capital_futurebot.json";
 	static String ca_id = "A123456789", ca_password = "mypassword";
@@ -80,7 +81,7 @@ public class skquote extends java.lang.Thread
 
 		
 		final Shell shell = new Shell(display);
-		shell.setSize(600, 200);
+		shell.setSize(800, 200);
 		shell.setText("FutureBot¸s¯q³ø»ù");
 		GridLayout gridLayout = new GridLayout();
 		gridLayout.numColumns = 1;
@@ -141,7 +142,7 @@ public class skquote extends java.lang.Thread
 		// p = label_TX00.computeSize(SWT.DEFAULT, SWT.DEFAULT);
 		// label_TX00.setBounds(100, 0, p.x + 5, p.y + 5);
 
-		label_TWN.setText("TX00,9108.0,0,9109.0,0,9109.0,9229.0,9082.0,4,78465,9194.0");
+		label_TWN.setText("TX00,9108.0,0,9109.0,0,9109.0,9229.0,9082.0,4,78465,9194.0fghfghdfghdfghdfghfhfteh");
 		// p = label_TWN.computeSize(SWT.DEFAULT, SWT.DEFAULT);
 		// label_TWN.setBounds(200, 0, p.x + 5, p.y + 5);
 
@@ -154,7 +155,7 @@ public class skquote extends java.lang.Thread
 
 		try
 		{
-			Thread.sleep(6000);
+			Thread.sleep(8000);
 		}
 		catch (InterruptedException ex)
 		{
@@ -165,13 +166,31 @@ public class skquote extends java.lang.Thread
 		ShortByReference sbr_2 = new ShortByReference((short) 2);
 		ShortByReference sbr_3 = new ShortByReference((short) 3);
 		ShortByReference sbr_4 = new ShortByReference((short) 4);
-		ret = SKQuoteLib.INSTANCE.SKQuoteLib_RequestTicks(sbr_1, "TX00");
-		System.out.println("RequestTicks = " + ret);
-		int retos = SKOSQuoteLib.INSTANCE.SKOSQuoteLib_RequestTicks(sbr_1, "SGX,TWNT1501");
-		retos += SKOSQuoteLib.INSTANCE.SKOSQuoteLib_RequestTicks(sbr_2, "17,KOSPI");
-		retos += SKOSQuoteLib.INSTANCE.SKOSQuoteLib_RequestTicks(sbr_3, "NYM,GC1502");
-		retos += SKOSQuoteLib.INSTANCE.SKOSQuoteLib_RequestTicks(sbr_4, "NYM,CL1502");
-		System.out.println("OS_RequestTicks = " + retos);
+		ShortByReference sbr_5 = new ShortByReference((short) 5);
+		ShortByReference sbr_6 = new ShortByReference((short) 6);
+		if (RequestTicks == 1)
+		{
+			ret = SKQuoteLib.INSTANCE.SKQuoteLib_RequestTicks(sbr_1, "TX00");
+			System.out.println("RequestTicks = " + ret);
+			int retos=0;
+			retos += SKOSQuoteLib.INSTANCE.SKOSQuoteLib_RequestTicks(sbr_1, "SGX,TWNT1501");
+			retos += SKOSQuoteLib.INSTANCE.SKOSQuoteLib_RequestTicks(sbr_2, "17,KOSPI");
+			retos += SKOSQuoteLib.INSTANCE.SKOSQuoteLib_RequestTicks(sbr_3, "NYM,GC1502");
+			retos += SKOSQuoteLib.INSTANCE.SKOSQuoteLib_RequestTicks(sbr_4, "NYM,CL1503");
+			retos += SKOSQuoteLib.INSTANCE.SKOSQuoteLib_RequestTicks(sbr_5, "CBT,ZN1503");
+			retos += SKOSQuoteLib.INSTANCE.SKOSQuoteLib_RequestTicks(sbr_6, "CBT,YM1503");
+			System.out.println("OS_RequestTicks = " + retos);
+		}
+		else
+		{
+			int retos=0;
+			ret = SKQuoteLib.INSTANCE.SKQuoteLib_RequestStocks(sbr_1, "TX00");
+			System.out.println("RequestStocks = " + ret);
+			retos = SKOSQuoteLib.INSTANCE.SKOSQuoteLib_RequestStocks(sbr_1,
+					"SGX,TWN1501#17,KOSPI#NYM,GC1502#NYM,CL1503#CBT,ZN1503#CBT,YM1503");
+			System.out.println("OS_RequestStocks = " + retos);
+
+		}
 
 		/*
 		 * 
@@ -179,7 +198,7 @@ public class skquote extends java.lang.Thread
 		 * 
 		 * String tick = "TX00"; if (RequestTicks == 1) { ret = SKQuoteLib.INSTANCE.SKQuoteLib_RequestTicks(sbr_neg, tick); debug = "SKQuoteLib_RequestTicks = "; } else { ret = SKQuoteLib.INSTANCE.SKQuoteLib_RequestStocks(sbr_neg, "TX00"); debug = "RequestStocks = "; } debug += ret; System.out.println(debug);
 		 */
-
+		Iterator lq = queue_price.iterator();
 		if (showgui == 1)
 		{
 			shell.open();
@@ -194,10 +213,11 @@ public class skquote extends java.lang.Thread
 				}
 				else
 				{
-					label_TX00.setText(quote.FOnNotifyQuote.msg);
-					label_TWN.setText(TicksGetOS.msg);
+					label_TX00.setText(NotifyQuote.msg);
+					label_TWN.setText(NotifyQuoteOS.msg);
 				}
-				while(!queue_price.isEmpty())
+				lq = queue_price.iterator();
+				while(lq.hasNext())
 				{
 					 client.doit(queue_price.remove());
 				}
@@ -211,7 +231,8 @@ public class skquote extends java.lang.Thread
 			while (!OutServer)
 			{
 				client.runflag = true;
-				while (!queue_price.isEmpty())
+				lq = queue_price.iterator();
+				while (lq.hasNext())
 					client.doit(queue_price.remove());
 
 				OutServer = check_runtime();

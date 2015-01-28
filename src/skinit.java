@@ -9,7 +9,7 @@ public class skinit extends Thread
 {
 	public void run()
 	{
-		//String tName = Thread.currentThread().getName();
+		// String tName = Thread.currentThread().getName();
 		int ret;
 
 		// os
@@ -26,11 +26,14 @@ public class skinit extends Thread
 					.SKOSQuoteLib_AttachStockCallBack(new skosquote.FOnStockGet());
 			if (skquote.RequestTicks == 1)
 				ret += SKOSQuoteLib.INSTANCE.SKOSQuoteLib_AttachTicksGetCallBack(new TicksGetOS());
+			else
+				ret += SKOSQuoteLib.INSTANCE.SKOSQuoteLib_AttachQuoteCallBack(new NotifyQuoteOS());
 
 			ret += SKOSQuoteLib.INSTANCE.SKOSQuoteLib_EnterMonitor((short) 0);
 			System.out.println(new String("OS EnterMonitor = " + ret));
 		}
 
+		// ¥x´Á.
 		ret = SKQuoteLib.INSTANCE.SKQuoteLib_Initialize(skquote.ca_id, skquote.ca_password);
 		if (ret == 0)
 		{
@@ -46,18 +49,17 @@ public class skinit extends Thread
 			if (skquote.RequestTicks == 1)
 				ret += SKQuoteLib.INSTANCE.SKQuoteLib_AttachTicksGetCallBack(new TicksGet());
 			else
-				ret += SKQuoteLib.INSTANCE
-						.SKQuoteLib_AttachQuoteCallBack(new quote.FOnNotifyQuote());
+				ret += SKQuoteLib.INSTANCE.SKQuoteLib_AttachQuoteCallBack(new NotifyQuote());
 			ret += SKQuoteLib.INSTANCE.SKQuoteLib_EnterMonitor();
 			System.out.println(new String("EnterMonitor = " + ret));
 		}
-		
+
 		Display display = new Display();
 		Shell shell = new Shell(display);
 		shell.setSize(300, 100);
 		shell.setText("skinit");
 		shell.setLayout(new RowLayout());
-		shell.open();
+		// shell.open();
 		while (!shell.isDisposed())
 		{
 			if (!display.readAndDispatch())
