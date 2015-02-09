@@ -129,6 +129,7 @@ public class NewDdeClient {
 	String tradingsymbol="MTX00";
 	private static final String POSITION_JSON = "capital_futurebot.json";
 	long paperorder=1;
+	long daytrade_order=0;
 
 	public static void main(String args[]) {
 		NewDdeClient client = new NewDdeClient();
@@ -218,14 +219,16 @@ public class NewDdeClient {
 			//ca_stock_account = (String) jsonObject.get("ca_stock_account");
 			
 			tradingsymbol = (String) jsonObject.get("symbol");
-			System.out.println("交易代號: " + tradingsymbol);
+			System.out.println("tradingsymbol: " + tradingsymbol);
 			long multi = (long)jsonObject.get("currentmulti");
-			System.out.println("下單倍數: " + currentmulti);
+			System.out.println("currentmulti: " + currentmulti);
 			long pos = (long)jsonObject.get("position");
-			System.out.println("目前部位: " + pos);
+			System.out.println("position: " + pos);
 			currentmulti = (int) multi;
 			paperorder = (long)jsonObject.get("paperorder");
 			System.out.println("paperorder: " + paperorder);
+			daytrade_order = (long)jsonObject.get("daytrade_order");
+			System.out.println("daytrade_order: " + daytrade_order);
 		}
 		catch (FileNotFoundException e)
 		{
@@ -387,9 +390,9 @@ public class NewDdeClient {
 						ca_account, 
 						tradingsymbol, 
 						(short) 1,	//0:ROD 1:IOC 2:FOK
-						(short) 0,	//當沖0:否 1:是，可當沖商品請參考交易所規定。.
-						order>0?(short)0:(short)1,	//買賣別，0:買進 1:賣出
-								"M", 	//委託價格，「M」表示市價
+						(short) daytrade_order,
+						order>0?(short)0:(short)1,
+								"P",
 								Math.abs(order)
 						);
 			}
