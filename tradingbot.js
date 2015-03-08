@@ -4,7 +4,7 @@ var HOST = '127.0.0.1';
 var PORT = 8888;
 var sock = new net.Socket();
 sock.connect(PORT, HOST, function() {
-	console.log('CONNECTED TO: ' + HOST + ':' + PORT);
+	//console.log('CONNECTED TO: ' + HOST + ':' + PORT);
 	var d = new Date().getTime();
 	var clientId = Math.floor((Math.random() * 10000) + 1);
 	var client_T = mqtt.connect('mqtt://user:tradingbot@m2m.tradingbot.com.tw?clientId=VM_' + d.toString() + clientId + 'T');
@@ -28,12 +28,12 @@ sock.connect(PORT, HOST, function() {
 });
 
 sock.on('close', function() {
-	console.log('Connection closed');
+	//console.log('Connection closed');
 });
 
 process.stdin.setEncoding('utf8');
 process.stdin.on('data', function (chunk, key) {
 	sock.destroy();
-	console.log("Bye!Bye!");
+	//console.log("Bye!Bye!");
 	process.exit();
 });

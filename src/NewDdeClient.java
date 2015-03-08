@@ -294,9 +294,9 @@ public class NewDdeClient {
 		f.alert(botname, fb, ip.getPPPIp() + " Start Trading System!! " + Offset);*/
 
 		futuressignals = futuressignals + GetWednesday.compareWed1() + ",A";
-		new File("C:\\Runtime").mkdir();
+		new File("Runtime").mkdir();
 		YYMMDD = GetWednesday.gettoday();
-		txt = new LogFile("C:\\Runtime\\" + YYMMDD + "_tickAPI.txt");
+		txt = new LogFile("Runtime\\" + YYMMDD + "_tickAPI.txt");
 
 		if (YYMMDD.equals(GetWednesday.compareWed2(YYMMDD)))
 			close = true;
