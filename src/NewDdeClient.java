@@ -392,7 +392,7 @@ public class NewDdeClient {
 						(short) 1,	//0:ROD 1:IOC 2:FOK
 						(short) daytrade_order,
 						order>0?(short)0:(short)1,
-								"P",
+								"M",
 								Math.abs(order)
 						);
 			}

@@ -80,7 +80,7 @@ FuturesBot - 台指期當沖自動交易機器人
 	
 4. 移動群益設定檔 config.ini 到 %PATH% 中 java.exe 的目錄所在，預設環境在 C:\ProgramData\Oracle\Java\javapath
 
-5. 所在目錄執行``ant``可得到 bot.jar，執行``java -jar bot.jar``
+5. 所在目錄執行``ant -f sk.xml``可得到 bot.jar，執行方式為``java -jar bot.jar``
 
 6. 程式簡易說明
 
